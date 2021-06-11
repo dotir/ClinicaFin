@@ -217,8 +217,22 @@
               </a>
             </li>
            <!-- Laboratorio --> 
+           <!-- Enfermero --> 
+        <%    
+            }else if (currentUser.getTipoPersona().equals("enfermero")){
+        %>
+            
+            <li class="side_menu_title">
+                <span>Atencion</span>
+            </li>
+            <li class="">
+              <a   class="has-arrow" href="#" aria-expanded="false">
+                <img src="img/menu-icon/2.svg" alt="">
+                <span>Atencion Emergencia</span>
+              </a>
+            </li>
+           <!-- Enfermero --> 
         <% }%>
-        
         
         
         
@@ -438,8 +452,33 @@
 
                     </div>
                 </div>              
+                <%}else if (currentUser.getTipoPersona().equals("enfermero")) {     
+                %>
+                    <div class="col-lg-12">
+                    <div class="white_box mb_30">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-6">
+                                <!-- sign_in  -->
+                                <div class="modal-content cs_modal">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Buscar Atencion</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="buscarExa" name=form method="POST" action="#" >
+                                            <div class="form-group">
+                                                <input type="number" name="dni" class="form-control" placeholder="Ingrese DNI" required/>
+                                            </div>
+                                            <input type="submit" class="btn_1 full_width text-center" value="Agregar"> 
+                                            <input type="submit" class="btn_1 full_width text-center" value="Buscar"> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>              
                 <%}%>
-                
             </div>
         </div>
      </div>
