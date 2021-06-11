@@ -314,8 +314,8 @@
                                                 <td>
 
                                                     <form method="get" action="CitaDetDoc">
-                                                        <input type="hidden" value="<%=objcitasd.get(i).getIdAtencion()%>>" name="CodeAte"/> <!-- etiquetado sin meta --> 
-                                                        <input type="hidden" value="<%=objcitasd.get(i).getIdDetalleAtencion()%>>" name="idCodeAte"/> <!-- etiquetado sin meta --> 
+                                                        <input type="hidden" value="<%=objcitasd.get(i).getIdAtencion()%>" name="CodeAte"> <!-- etiquetado sin meta --> 
+                                                        <input type="hidden" value="<%=objcitasd.get(i).getIdDetalleAtencion()%>" name="idCodeAte"> <!-- etiquetado sin meta --> 
                                                         <button type="submit" class="btn_1 full_width text-center">Continue</button>
                                                     </form>
 

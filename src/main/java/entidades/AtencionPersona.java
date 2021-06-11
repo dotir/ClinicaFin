@@ -53,6 +53,25 @@ public class AtencionPersona{
         this.Descripcion = Descripcion;
         this.Unidades = Unidades;
     }
+
+    
+    // PARA LLENAR DETALLE DE ATENCINON
+    
+    public AtencionPersona(int idAtencion, int IdDetalleAtencion, String TipoAtencion, String NombreLocal, String Detalle, String HoraInicio, String HoraFin, String Estado) {
+        this.idAtencion = idAtencion;
+        this.IdDetalleAtencion = IdDetalleAtencion;
+        this.TipoAtencion = TipoAtencion;
+        this.NombreLocal = NombreLocal;
+        this.Detalle = Detalle;
+        this.HoraInicio = HoraInicio;
+        this.HoraFin = HoraFin;
+        this.Estado = Estado;
+    }
+
+    public AtencionPersona(int idAtencion, int IdDetalleAtencion) {
+        this.idAtencion = idAtencion;
+        this.IdDetalleAtencion = IdDetalleAtencion;
+    }
     
     
     

@@ -550,6 +550,85 @@ public class DaoAtencion {
     }
     
     
+     //obtener todas los detalles de atencicon del cliente solo con idatencion y id atencion detalle
+    public ArrayList<AtencionPersona> obtenerDetalleAtencion(int idAte , int idDetalleAte){
+        ArrayList<AtencionPersona> obj_citas = new ArrayList<AtencionPersona>();
+        Statement stmt = null;
+        
+
+        String searchQuery =
+                "SELECT DE.idAtencion, DE.idDetalleAtencion, TA.TipoAtencion,L.NombreLocal,"
+                + " DE.Detalle, DE.HoraInicio, DE.HoraFin, DE.Precio, DE.Estado"
+                + " FROM detalleatencion DE"
+                + " INNER JOIN tipoatencion TA ON TA.idTipoAtencion=DE.idTipoAtencion"
+                + " INNER JOIN LOCAL L ON L.idLocal=DE.idLocal"
+                + " WHERE DE.idAtencion='"+ idAte +"' AND DE.idDetalleAtencion='"+ idDetalleAte +"'";
+        
+        System.out.println(searchQuery);
+        
+        try{
+            
+            currenctCon = ConnectionManager.getConn();
+            stmt = currenctCon.createStatement();
+            rs = stmt.executeQuery(searchQuery);
+
+            
+            while(rs.next()){    
+                AtencionPersona bean = new AtencionPersona();
+                int idAtencion  = Integer.parseInt(rs.getString("idAtencion"));
+                bean.setIdAtencion(idAtencion);
+                int idDetalleAtencion  = Integer.parseInt(rs.getString("idDetalleAtencion"));
+                bean.setIdDetalleAtencion(idDetalleAtencion);
+                
+                String TipoAtencion = rs.getString("TipoAtencion");
+                bean.setTipoAtencion(TipoAtencion);
+                String NombreLocal = rs.getString("NombreLocal");
+                bean.setNombreLocal(NombreLocal);
+                String Detalle = rs.getString("Detalle");
+                bean.setDetalle(Detalle);
+                String HoraInicio = rs.getString("HoraInicio");
+                bean.setHoraInicio(HoraInicio);
+                String HoraFin = rs.getString("HoraFin");
+                bean.setHoraFin(HoraFin);
+                String Estado = rs.getString("Estado");
+                bean.setEstado(Estado);
+
+                obj_citas.add(bean);
+            }
+ 
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+        finally{
+            if(rs != null){
+                try{
+                    rs.close();
+                }catch(Exception e){
+                    rs=null;
+                }  
+            }
+            if(stmt != null){
+                try{
+                    stmt.close();
+                }catch(Exception e){
+                    stmt=null;
+                }  
+            }
+            if(currenctCon != null){
+                try{
+                    currenctCon.close();
+                }catch(Exception e){
+                    currenctCon=null;
+                }  
+            }
+        }
+        return obj_citas;
+    }
+    
+    
     //actualizar atencion detalle
     public AtencionPersona ActualizarAtencionDetalle(AtencionPersona bean) {
         Connection cn = null;

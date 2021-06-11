@@ -5,6 +5,7 @@
  */
 package controlador;
 
+import entidades.AtencionPersona;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.DaoAtencion;
 
 /**
  *
@@ -38,17 +40,11 @@ public class CitaDetDoc extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String  idAtencion=request.getParameter("CodeAte");
             String  idDetAtencion=request.getParameter("idCodeAte");
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet CitaDetDoc</title>");            
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet CitaDetDoc at " + idAtencion + " " + idDetAtencion + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//            
-//            response.setContentType("text/html;charset=UTF-8");
+            
+            DaoAtencion objAgregarAtenDet= new DaoAtencion();
+//            AtencionPersona objAtenDeta = new AtencionPersona(Integer.parseInt(idAtencion),Integer.parseInt(idDetAtencion));
+            objAgregarAtenDet.obtenerDetalleAtencion(Integer.parseInt(idAtencion),Integer.parseInt(idDetAtencion));
+            
             response.sendRedirect("bdetcita.jsp");
         }
         

@@ -58,13 +58,13 @@
         <!-- style CSS -->
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/colors/default.css" id="colorSkinCSS">
-        <script>
+<!--        <script>
             
                 
                 let value = value.replaceAll("'","\"");
                 value = JSON.parse(value);
                 console.log(value);     
-        </script>
+        </script>-->
         
     </head>
     <body class="crm_body_bg">
@@ -171,6 +171,23 @@
                     <ul>
                         <li><a href="breceta.jsp">Buscar receta</a></li>
                         <li><a href="#">Pagar receta</a></li>
+                    </ul>
+                </li>
+                <%
+                } else if (currentUser.getTipoPersona().equals("enfermero")) {
+                %>
+                <!-- Cliente -->
+                <li class="side_menu_title">
+                    <span>Atencion</span>
+                </li>
+                <li class="">
+                    <a   class="has-arrow" href="#" aria-expanded="false">
+                        <img src="img/menu-icon/2.svg" alt="">
+                        <span>Citas</span>
+                    </a>
+                    <ul>
+                        <li><a href="principal.jsp">Buscar cita</a></li>
+                        <li><a href="rcita.jsp">Registrar cita</a></li>
                     </ul>
                 </li>
                 <!-- Cliente --> 
