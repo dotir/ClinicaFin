@@ -269,28 +269,19 @@
                                     <div class="modal-body">
                                         <form id="registro" name=form method="POST" action="#" >
                                             <div class="form-group">
-                                                <input type="text" name="IdDetAtencion" class="form-control" placeholder="Numero de atencion" required/>
+                                                <input type="text" name="IdDetAtencion" class="form-control" placeholder="Numero de atencion" />
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" name="NombreP" class="form-control" placeholder="Nombre del paciente" required/>
+                                                <input type="text" name="NombreP" class="form-control" placeholder="Nombre del paciente" />
                                             </div>
                                             <div class="form-group">
-                                                <input type="text" name="NombreD" class="form-control" placeholder="Nombre del doctor" required/>
+                                                <input type="number" maxlength="8" name="ndoumento" placeholder="Nro Documento" >
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" maxlength="8" name="ndoumento" placeholder="Nro Documento" required>
+                                                <input type="number" maxlength="9" name="SubTotal" class="form-control" placeholder="Sub total" >
                                             </div>
                                             <div class="form-group">
-                                                <input type="number" maxlength="9" name="SubTotal" class="form-control" placeholder="Sub total" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="textarea" name="Detalle" class="form-control" rows="5" cols="10" placeholder="Detalle" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="email" name="correo" class="form-control" placeholder="Correo" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="password" name="contrasena" class="form-control" placeholder="Contraseña" required>
+                                                <textarea name="Detalle" class="form-control" placeholder="Detalle"></textarea>
                                             </div>
                                             <input type="submit" class="btn_1 full_width text-center" value="Registrar"> 
                                         </form>

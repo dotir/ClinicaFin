@@ -5,13 +5,12 @@
  */
 package modelo;
 
-import static modelo.DaoUsuario.currenctCon;
-import static modelo.DaoUsuario.rs;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import entidades.persona;
+import entidades.*;
 
 /**
  *

@@ -5,8 +5,8 @@
  */
 package controlador;
 
-import basedatos.DaoDirecciones;
-import basedatos.Daodatos;
+import modelo.DaoDirecciones;
+import modelo.Daodatos;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
