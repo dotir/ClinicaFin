@@ -15,9 +15,11 @@ import java.sql.Timestamp;
 public class AtencionPersona{
     private int idAtencion;
     private int IdUsuarioCliente;
+    private int IdUsuarioMedico;
     private int IdDetalleAtencion;
     private String Nombre_Paciente;
     private String Apellido_Paciente;
+    private String Nombre_Medico;
     private String Apellido_Medico;
     private Date FechaAtencion;
     private Date FechaProgramada;
@@ -31,10 +33,77 @@ public class AtencionPersona{
     private String HoraFin;
     private String Estado;
     
+    private String Emergencia;
+    private String Especialidad;
     private String Tipo_Receta;
     private String Descripcion;
     private String Unidades;
 
+//    public AtencionPersona(int idAtencion, int IdUsuarioCliente,int IdUsuarioMedico , int IdDetalleAtencion, String Nombre_Paciente, String Nombre_Medico, Date FechaAtencion, Date FechaProgramada, double igv, double total) {
+//        this.idAtencion = idAtencion;
+//        this.IdUsuarioCliente = IdUsuarioCliente;
+//        this.IdUsuarioMedico = IdUsuarioMedico;
+//        this.IdDetalleAtencion = IdDetalleAtencion;
+//        this.Nombre_Paciente = Nombre_Paciente;
+//        this.Nombre_Medico = Nombre_Medico;
+//        this.FechaAtencion = FechaAtencion;
+//        this.FechaProgramada = FechaProgramada;
+//        this.igv = igv;
+//        this.total = total;
+//    }
+
+    public AtencionPersona(){}
+    
+    //para obtener combo box
+    public AtencionPersona(int IdUsuarioMedico, String Nombre_Medico) {
+        this.IdUsuarioMedico = IdUsuarioMedico;
+        this.Nombre_Medico = Nombre_Medico;
+    }
+
+    public AtencionPersona(int idAtencion, int IdUsuarioCliente, int IdUsuarioMedico, String Nombre_Paciente, String Apellido_Paciente, String Nombre_Medico, String Apellido_Medico, Date FechaAtencion, Date FechaProgramada, String TipoAtencion, String NombreLocal, String Detalle, String HoraInicio, String Estado, String Emergencia, String Especialidad) {
+        this.idAtencion = idAtencion;
+        this.IdUsuarioCliente = IdUsuarioCliente;
+        this.IdUsuarioMedico = IdUsuarioMedico;
+        this.Nombre_Paciente = Nombre_Paciente;
+        this.Apellido_Paciente = Apellido_Paciente;
+        this.Nombre_Medico = Nombre_Medico;
+        this.Apellido_Medico = Apellido_Medico;
+        this.FechaAtencion = FechaAtencion;
+        this.FechaProgramada = FechaProgramada;
+        this.TipoAtencion = TipoAtencion;
+        this.NombreLocal = NombreLocal;
+        this.Detalle = Detalle;
+        this.HoraInicio = HoraInicio;
+        this.Estado = Estado;
+        this.Emergencia = Emergencia;
+        this.Especialidad = Especialidad;
+    }
+
+    
+    
+    
+    
+    
+    
+    public AtencionPersona(int idAtencion, int IdUsuarioCliente, int IdUsuarioMedico, int IdDetalleAtencion, String Nombre_Paciente, String Nombre_Medico, Date FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
+        this.idAtencion = idAtencion;
+        this.IdUsuarioCliente = IdUsuarioCliente;
+        this.IdUsuarioMedico = IdUsuarioMedico;
+        this.IdDetalleAtencion = IdDetalleAtencion;
+        this.Nombre_Paciente = Nombre_Paciente;
+        this.Nombre_Medico = Nombre_Medico;
+        this.FechaAtencion = FechaAtencion;
+        this.FechaProgramada = FechaProgramada;
+        this.subtotal = subtotal;
+        this.igv = igv;
+        this.total = total;
+    }
+
+
+
+    
+    
+    
     //PARA EL DETALLE DE ATENCION
     public AtencionPersona(int idAtencion, int IdUsuarioCliente, String Detalle, String HoraInicio, String HoraFin, String Estado) {
         this.idAtencion = idAtencion;
@@ -132,7 +201,21 @@ public class AtencionPersona{
         this.IdDetalleAtencion = IdDetalleAtencion;
     }
 
-    
+    public String getNombre_Medico() {
+        return Nombre_Medico;
+    }
+
+    public void setNombre_Medico(String Nombre_Medico) {
+        this.Nombre_Medico = Nombre_Medico;
+    }
+
+    public int getIdUsuarioMedico() {
+        return IdUsuarioMedico;
+    }
+
+    public void setIdUsuarioMedico(int IdUsuarioMedico) {
+        this.IdUsuarioMedico = IdUsuarioMedico;
+    }    
 
     public String getTipo_Receta() {
         return Tipo_Receta;
@@ -156,6 +239,22 @@ public class AtencionPersona{
 
     public void setUnidades(String Unidades) {
         this.Unidades = Unidades;
+    }
+
+    public String getEmergencia() {
+        return Emergencia;
+    }
+
+    public void setEmergencia(String Emergencia) {
+        this.Emergencia = Emergencia;
+    }
+
+    public String getEspecialidad() {
+        return Especialidad;
+    }
+
+    public void setEspecialidad(String Especialidad) {
+        this.Especialidad = Especialidad;
     }
 
    
@@ -219,8 +318,7 @@ public class AtencionPersona{
         this.IdUsuarioCliente = IdUsuarioCliente;
     }
 
-    public AtencionPersona(){}
-    
+
     public int getIdAtencion() {
         return idAtencion;
     }

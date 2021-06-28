@@ -43,6 +43,11 @@ public class persona {
         this.correo = correo;
     }
 
+    public persona(int idPersona, String Nombre) {
+        this.idPersona = idPersona;
+        this.Nombre = Nombre;
+    }
+
     
     
     public persona(int idPersona, String Nombre, String ApellidoP, String ApellidoM, String FechaNac, String NroDocumento, String Direccion, String Distrito, String Provincia, String Departamento, String correo, boolean estado, String tipoPersona) {

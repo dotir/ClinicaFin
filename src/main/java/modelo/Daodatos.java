@@ -1,5 +1,7 @@
 package modelo;
 
+import entidades.doctor;
+import entidades.AtencionPersona;
 import static modelo.DaoDirecciones.currenctCon;
 import static modelo.DaoDirecciones.rs;
 import static modelo.DaoTipoAtencion.currenctCon;
@@ -10,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import entidades.tipoatencion;
+import entidades.usuario;
 
 /**
  *
@@ -176,11 +179,12 @@ public class Daodatos {
         return cod;
     }
     
-    public ArrayList<String> obtenerDoctores(){
+    public ArrayList<AtencionPersona> obtenerDoctores(){
         
         Statement stmt = null;
-        ArrayList<String> objdoctores = new ArrayList<String>();
-
+        
+        ArrayList<AtencionPersona> objdoctores = new ArrayList<AtencionPersona>();
+        ArrayList<usuario> obj1 = new ArrayList<usuario>(); 
         String searchQuery =
                 "SELECT * FROM persona where idTipoPersona=2";
         
@@ -192,11 +196,17 @@ public class Daodatos {
             stmt = currenctCon.createStatement();
             rs = stmt.executeQuery(searchQuery);
 //            boolean more= rs.next();
+            AtencionPersona objdoc;
+            while (rs.next()) {
+                objdoc=new AtencionPersona();
 
-            while(rs.next()){     
-                objdoctores.add(rs.getString("Nombre")+" "+rs.getString("ApellidoPaterno")+" "+rs.getString("ApellidoMaterno"));
+                objdoc.setIdUsuarioMedico(Integer.parseInt(rs.getString("idPersona")));
+                objdoc.setNombre_Medico(rs.getString("Nombre") + " " + rs.getString("ApellidoPaterno") + " " + rs.getString("ApellidoMaterno"));
+                objdoctores.add(objdoc);
+//                objdoctores.add(rs.getString("idPersona") + " " + rs.getString("Nombre")+" "+rs.getString("ApellidoPaterno")+" "+rs.getString("ApellidoMaterno"));
             }
- 
+
+
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }catch(Exception e){
@@ -228,6 +238,60 @@ public class Daodatos {
         }
         return objdoctores;
     }
+    
+//    public ArrayList<String> obtenerDoctores(){
+//        
+//        Statement stmt = null;
+//        ArrayList<String> objdoctores = new ArrayList<String>();
+//        ArrayList<usuario> obj1 = new ArrayList<usuario>(); 
+//        String searchQuery =
+//                "SELECT * FROM persona where idTipoPersona=2";
+//        
+//        System.out.println(searchQuery);
+//        
+//        try{
+//            
+//            currenctCon = ConnectionManager.getConn();
+//            stmt = currenctCon.createStatement();
+//            rs = stmt.executeQuery(searchQuery);
+////            boolean more= rs.next();
+//
+//            while(rs.next()){  
+//                objdoctores.add(rs.getString("idPersona") + " " + rs.getString("Nombre")+" "+rs.getString("ApellidoPaterno")+" "+rs.getString("ApellidoMaterno"));
+//            }
+// 
+//        }catch(SQLException e){
+//            System.out.println(e.getMessage());
+//        }catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//        
+//        finally{
+//            if(rs != null){
+//                try{
+//                    rs.close();
+//                }catch(Exception e){
+//                    rs=null;
+//                }  
+//            }
+//            if(stmt != null){
+//                try{
+//                    stmt.close();
+//                }catch(Exception e){
+//                    stmt=null;
+//                }  
+//            }
+//            if(currenctCon != null){
+//                try{
+//                    currenctCon.close();
+//                }catch(Exception e){
+//                    currenctCon=null;
+//                }  
+//            }
+//        }
+//        return objdoctores;
+//    }
+//    
     
     
     public ArrayList<String> obtenerLocal(){
@@ -448,4 +512,5 @@ public class Daodatos {
         return objdocumentos;
         
     }
+    
 }

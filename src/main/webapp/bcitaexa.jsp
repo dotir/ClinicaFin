@@ -3,8 +3,6 @@
     Created on : 10/05/2021, 06:45:39 PM
     Author     : Dell
 --%>
-<%@page import="modelo.Daodatos"%>
-<%@page import="modelo.DaoUsuario"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="entidades.AtencionPersona"%>
 <%@page import="entidades.detalleatencion"%>
@@ -87,8 +85,6 @@
                 </li>
                 <% persona currentUser = (persona) session.getAttribute("datospersona");
                     Gson gson = new Gson();
-                    String nombreReg;
-                    int codReg;
                 %>
 
                 <%  if (currentUser.getTipoPersona().equals("administrador")) {
@@ -197,37 +193,7 @@
                 <!-- Medico --> 
 
 
-                
-                <%
-                } else if (currentUser.getTipoPersona().equals("recepcionista")) {
-                %>
-                <!-- medico -->
-                <li class="side_menu_title">
-                    <span>RECEPCION</span>
-                </li>
-                <li class="">
-                    <a   class="has-arrow" href="bcita.jsp" aria-expanded="false">
-                        <img src="img/menu-icon/2.svg" alt="">
-                        <span>PACIENTES</span>
-                    </a>
-                    <ul>
-                        <li><a href="bcita.jsp">Buscar cita</a></li>
-                    </ul>
-                </li>
-
-                <li class="">
-                    <a   class="has-arrow" href="#" aria-expanded="false">
-                        <img src="img/menu-icon/3.svg" alt="">
-                        <span>Recetas</span>
-                    </a>
-                    <ul>
-                        <li><a href="breceta.jsp">Asignar receta</a></li>
-                    </ul>
-                </li>
-                <!-- Medico --> 
-
-
-                
+                }
                 <% }%>
 
 
@@ -299,243 +265,180 @@
 
                                 <div class="QA_table mb_30">
                                     <!-- table-responsive -->
-
-                                    <%
-                                        DaoAtencion objcita = new DaoAtencion();
-                                        DaoUsuario objcitar = new DaoUsuario();
-                                        ArrayList<AtencionPersona> objcitasp = objcita.obtenerCitaPacientesDetallada(currentUser.getIdPersona());
-//                                                ArrayList<detalleatencion> objcitasp = objcita.obtenerCitaPacientes(currentUser.getIdPersona());
-                                        ArrayList<AtencionPersona> objcitasd = objcita.obtenerCitadoctoresdet(currentUser.getIdPersona());
-                                        ArrayList<persona> objcitasr = objcitar.obtenerPacientesRecep();
-                                        if (currentUser.getTipoPersona().equals("paciente")) {
-                                    %>
                                     <table class="table lms_table_active">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Numero de Atencion</th>
+                                                <th scope="col">Numero de detalle de atencion</th>
                                                 <th scope="col">Nombre Paciente</th>
                                                 <th scope="col">Nombre Dcotor</th>
-                                                <th scope="col">Especialidad</th>
-                                                <th scope="col">Tipo de atencion</th>
+                                                <th scope="col">Fecha Atencion</th>
                                                 <th scope="col">Fecha Programada</th>
-                                                <th scope="col">Hora inicio</th>
-                                                <th scope="col">Local</th>
-                                                <th scope="col">Diagnostico</th>
-                                                <th scope="col">Estado</th>
-                                                <th scope="col">Emergencia</th>
-                                                <th scope="col">SubTotal</th>
-                                                <th scope="col">IGV</th>
-                                                <th scope="col">TOTAL</th>
-                                                <th scope="col">Receta</th>
+                                                <th scope="col">DETALLE</th>
 
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody>                          
+                                            <%
+                                                DaoAtencion objcita = new DaoAtencion();
+                                                ArrayList<AtencionPersona> objcitasp = objcita.obtenerCitaPacientesDetallada(currentUser.getIdPersona());
+//                                                ArrayList<detalleatencion> objcitasp = objcita.obtenerCitaPacientes(currentUser.getIdPersona());
+                                                ArrayList<AtencionPersona> objcitasd = objcita.obtenerCitadoctoresdet(currentUser.getIdPersona());
+                                                ArrayList<AtencionPersona> objcitasd2 = objcita.obtenerCitadoctoresdet(currentUser.getIdPersona());
+        //                                        ArrayList<detalleatencion> objatencion = objcita.obtenerCitadoctores(currentUser.getIdPersona());
+        //                                        ArrayList<detalleatencion> objcitasd= objcita.obtenerCitadoctores(currentUser.getIdPersona());
+                                                if (currentUser.getTipoPersona().equals("paciente")) {
+                                            %>
                                             <% for (int i = 0; i < objcitasp.size(); i++) {%>
                                             <tr>
                                                 <td><%=objcitasp.get(i).getIdAtencion()%></td>
-                                                <td><%=objcitasp.get(i).getNombre_Paciente()%></td>
+                                                <td><%=objcitasp.get(i).getIdAtencion()%></td>
                                                 <td><%=objcitasp.get(i).getNombre_Medico()%></td>
-                                                <td><%=objcitasp.get(i).getEspecialidad()%></td>
-                                                <td><%=objcitasp.get(i).getTipoAtencion()%></td>
+                                                <td><%=objcitasp.get(i).getNombre_Paciente()%></td>
+                                                <td><%=objcitasp.get(i).getFechaAtencion()%></td>
                                                 <td><%=objcitasp.get(i).getFechaProgramada()%></td>
-                                                <td><%=objcitasp.get(i).getHoraInicio()%></td>
-                                                <td><%=objcitasp.get(i).getNombreLocal()%></td>
-                                                <td><%=objcitasp.get(i).getDetalle()%></td>
-                                                <td><%=objcitasp.get(i).getEstado()%></td>
-                                                <td><%=objcitasp.get(i).getEmergencia()%></td>
-                                                <td><%=objcitasp.get(i).getSubtotal()%></td>
-                                                <td><%=objcitasp.get(i).getIgv()%></td>
-                                                <td><%=objcitasp.get(i).getTotal()%></td>
                                                 <td><%=objcitasp.get(i).getDetalle()%></td>
                                                 <!--<td><a href="eatencionc.jsp">Ingresar</a>></td>-->
                                             </tr>
                                             <% }%>
-                                        </tbody>
-                                    </table>
-                                    <!--MEDICO-->
+                                            <!--MEDICO-->
 
-                                    <%} else if (currentUser.getTipoPersona().equals("medico")) {%>
-                                    <table class="table lms_table_active">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Numero de Atencion</th>
-                                                <th scope="col">Nombre Paciente</th>
-                                                <th scope="col">Nombre Dcotor</th>
-                                                <th scope="col">Especialidad</th>
-                                                <th scope="col">Tipo de atencion</th>
-                                                <th scope="col">Fecha Programada</th>
-                                                <th scope="col">Estado</th>
-                                                <th scope="col">Diagnostico</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%for (int i = 0; i < objcitasd.size(); i++) {%>
+                                            <%} else if (currentUser.getTipoPersona().equals("medico")) {
+                                            for (int i = 0; i < objcitasd.size(); i++) {%>
                                             <tr>
                                                 <td><%=objcitasd.get(i).getIdAtencion()%></td>
+                                                <td><%=objcitasd.get(i).getIdDetalleAtencion()%></td>
                                                 <td><%=objcitasd.get(i).getNombre_Paciente()%></td>
                                                 <td><%=objcitasd.get(i).getNombre_Medico()%></td>
-                                                <td><%=objcitasd.get(i).getEspecialidad()%></td>
-                                                <td><%=objcitasd.get(i).getTipoAtencion()%></td>
+                                                <td><%=objcitasd.get(i).getFechaAtencion()%></td>
                                                 <td><%=objcitasd.get(i).getFechaProgramada()%></td>
-                                                <td><%=objcitasd.get(i).getEstado()%></td>
+<!--                                                <td>
+                                                    <button class="btn btn-info" data-toggle="modal" data-target="#exampleModal1"  value="<%=gson.toJson(objcitasd.get(i)).replaceAll("\"", "'")%>" onclick="modifyReceta(this)">
+                                                        AGREGAR </button>
+                                                </td>-->
                                                 <td>
+
                                                     <form method="get" action="CitaDetDoc">
-                                                        <input type="hidden" value="<%=objcitasd.get(i).getIdAtencion()%>" name="CodePac"> <!-- etiquetado sin meta --> 
-                                                        <input type="hidden" value="<%=objcitasd.get(i).getNombre_Paciente()%>" name="NombrePac"> <!-- etiquetado sin meta --> 
+                                                        <input type="hidden" value="<%=objcitasd.get(i).getIdAtencion()%>" name="CodeAte"> <!-- etiquetado sin meta --> 
+                                                        <input type="hidden" value="<%=objcitasd.get(i).getIdDetalleAtencion()%>" name="idCodeAte"> <!-- etiquetado sin meta --> 
                                                         <button type="submit" class="btn_1 full_width text-center">Continue</button>
                                                     </form>
 
                                                 </td>
 
                                             </tr>
-                                            <%}%>
+                                            <%}
+}%>
                                         </tbody>
                                     </table>
-                                    <%} else if (currentUser.getTipoPersona().equals("recepcionista")) {%>
-                                    <table class="table lms_table_active">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Numero de paciente</th>
-                                                <th scope="col">Nombre Nombre completo</th>
-                                                <th scope="col">Tipo de docuemunto</th>
-                                                <th scope="col">Numero de documento</th>
-                                                <th scope="col">Correo</th>
-                                                <th scope="col">Agregar cita</th>
-                                                <th scope="col">Confimar cita</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <%for (int i = 0; i < objcitasr.size(); i++) {%>
-                                            <tr>
-                                                <td><%=objcitasr.get(i).getIdPersona()%></td>
-                                                <td><%=objcitasr.get(i).getNombre()%></td>
-                                                <td><%=objcitasr.get(i).getTipoDocumento()%></td>
-                                                <td><%=objcitasr.get(i).getNroDocumento()%></td>
-                                                <td><%=objcitasr.get(i).getCorreo()%></td>
-                                                <td>
-                                                    <form method="get" action="#">
-                                                        <%codReg=objcitasr.get(i).getIdPersona();%>
-                                                        <%nombreReg=objcitasr.get(i).getNombre();%>
-                                                        <input type="hidden" value="<%=objcitasr.get(i).getIdPersona()%>" name="CodePac"> <!-- etiquetado sin meta --> 
-                                                        <input type="hidden" value="<%=objcitasr.get(i).getNombre()%>" name="NombrePac"> <!-- etiquetado sin meta --> 
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Continue</button>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                    <form method="get" action="#">
-                                                        <input type="hidden" value="<%=objcitasr.get(i).getIdPersona()%>" name="CodePac"> <!-- etiquetado sin meta --> 
-                                                        <input type="hidden" value="<%=objcitasr.get(i).getNombre()%>" name="NombrePac"> <!-- etiquetado sin meta --> 
-                                                        <button type="submit" class="btn_1 full_width text-center">Continue</button>
-                                                    </form>
-                                                </td>
-                                            </tr>
-                                            <%}%>
-                                        </tbody>
-                                    </table>
-                                    <%}%>
-
                                     <!-- Modal -->
-                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">CREAR CITA</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Registrar detalle de atencion</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="registro" name=form method="POST" action="#" >
-                                                        <input hidden="true" type="text" name="idpersona" value="<%=currentUser.getIdPersona()%>"  class="form-control">
-                                                        <!--{'nombre':'Alessandro Pelayo','apellidosP':'Mollocondo','apellidoM':'Medrano','especialidad':'Cardiología'}-->
-                                                        <div class="form-group">
-                                                            <label for="idAtencion">Numero del paciente: </label>
-                                                            <input type="text" id="idAtencion" name="idAtencion" class="form-control" placeholder="Nombre" value="">
+                                                    <div class="card-group">
+                                                        <div class="card">
+                                                            <form id="registro" name=form method="POST" action="CitaActualizarDoc" >
+                                                                <input hidden="true" type="text" name="idpersona" value="<%=currentUser.getIdPersona()%>"  class="form-control">
+                                                                <!--{'nombre':'Alessandro Pelayo','apellidosP':'Mollocondo','apellidoM':'Medrano','especialidad':'Cardiología'}-->
+                                                                <div class="form-group">
+                                                                    <label for="idAtencion">Numero de atencion: </label>
+                                                                    <input type="text" id="idAtencion" name="idAtencion" class="form-control" placeholder="Nombre">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="TipoAtencion" >Tipo de atencion</label>
+                                                                    <input type="text" id="TipoAtencion" name="TipoAtencion" class="form-control" placeholder="Nombre">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="NombreLocal" >Nombre del local</label>
+                                                                    <input type="text" id="NombreLocal" name="NombreLocal" class="form-control" placeholder="Nombre">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="Detalle" >Detalle de la atencion</label>
+                                                                    <textarea  type="text" id="Detalle" name="Detalle" class="form-control" placeholder="Nombre" rows="10" cols="100"></textarea>
+                                                                </div>
+                                                                <div style="float:right;">
+                                                                    <script type="text/javascript">
+                                                                        //<![CDATA[
+                                                                        var today = new Date();
+                                                                        var m = today.getMonth() + 1;
+                                                                        var mes = (m < 10) ? '0' + m : m;
+                                                                        document.write('Fecha: ' + today.getDate(), '/' + mes, '/' + today.getYear());
+                                                                        //]]> 
+                                                                    </script>
+                                                                </div>
+                                                                <input type="submit" class="btn_1 full_width text-center" value="Registrar detalle de atencion"> 
+                                                            </form>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <label for="TipoAtencion">Nombre del paciente: </label>
-                                                            <input type="text" id="TipoAtencion" name="TipoAtencion" class="form-control" placeholder="Nombre" value="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="especialidad" class="form-control" aria-label="Default select example">
-                                                                <option selected>Eliga la especialidad</option>
-                                                                <% Daodatos obj = new Daodatos();%>
-                                                                <% for (int i = 0; i < obj.obtenerEspecialidad().size(); i++) {
-                                                                %>
-                                                                <option value="<%=i%>"><%= obj.obtenerEspecialidad().get(i)%></option>
-                                                                <% } %>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="iddoctor" class="form-control" aria-label="Default select example">
-                                                                <option selected>Eliga el doctor</option>
-                                                                <%for (AtencionPersona p : obj.obtenerDoctores()) {%>       
-                                                                <!-- se itera el array para almacenarlo en un combo box -->
-                                                                <option value="<%=p.getIdUsuarioMedico()%>"><%=p.getNombre_Medico()%></option>
-                                                                <% }%>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <select name="idlocal" class="form-control" aria-label="Default select example">
-                                                                <option selected>Eliga el local</option>
-                                                                <option value="1">Local 1</option>
-                                                                <option value="2">Local 2</option>
-                                                            </select>
-                                                        </div>
-                                                            <div class="form-group">
-                                                                <select name="tatencion" class="form-control" aria-label="Default select example">
-                                                                    <option selected>Eliga el tipo atencion</option>               
-                                                                    <option value="1">presencial</option>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input name="Emergenecia" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                                <label class="form-check-label" for="flexCheckDefault">
-                                                                    Emergencia
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="precio">precio: </label>
-                                                                <input type="text" id="idAtencion" name="subtotal" class="form-control" placeholder="precio" value="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="IGV">precio: </label>
-                                                                <input type="text" id="idAtencion" name="igv" class="form-control" placeholder="IGV" value="">
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="TOTAL">precio: </label>
-                                                                <input type="text" id="idAtencion" name="total" class="form-control" placeholder="TOTAL" value="">
-                                                            </div>
-                                                            <div style="float:right;">
-                                                                <script type="text/javascript">
-                                                                //<![CDATA[
-                                                                var today = new Date();
-                                                                var m = today.getMonth() + 1;
-                                                                var mes = (m < 10) ? '0' + m : m;
-                                                                document.write('Fecha: ' + today.getDate(), '/' + mes, '/' + today.getYear());
-                                                                //]]> 
-                                                            </script>
-                                                        </div>
-                                                        <input type="submit" class="btn_1 full_width text-center" value="Registrar cita"> 
-                                                    </form>
+                                                    </div>                                        
                                                 </div>
+
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <!-- Modal -->
-                                    
+                                    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModal1Label">Receta</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="card-group">
+                                                        <div class="card">
+                                                            <form id="ingreso" name=form method="POST" action="RecetaInsertar" >
+                                                                <input hidden="true" type="text" name="idpersona" value="<%=currentUser.getIdPersona()%>"  class="form-control">
+                                                                <div class="modal-body">
+                                                                    <div class="modal-body">
+                                                                        <div class="form-group">
+                                                                            <label for="idAtencion">Numero de atencion: </label>
+                                                                            <input type="text" id="idAtencion" name="idAtencion" class="form-control" placeholder="Nombre">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="Tipo_Receta">Tipo Receta </label>
+                                                                            <input type="text" id="Tipo_Receta" name="Tipo_Receta" class="form-control" placeholder="Nombre">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="Descripcion" >Descripcion</label>
+                                                                            <textarea id="Descripcion" name="Descripcion" class="form-control" placeholder="Nombre" rows="10" cols="100"></textarea>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label for="unidades" >unidades</label>
+                                                                            <input type="text" id="unidades" name="unidades" class="form-control" placeholder="Nombre">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="submit" class="btn_1 full_width text-center" value="Registrar receta"> 
+                                                            </form>
+                                                        </div>
+                                                    </div>                                        
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
                 <!-- footer part -->
 <div class="footer_part">

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entidades.persona;
 import entidades.telefono;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -39,7 +40,12 @@ public class UsuarioRegistro extends HttpServlet {
         String nombre=request.getParameter("nombre");
         String apellidop=request.getParameter("apellidop");
         String apellidom=request.getParameter("apellidom");
-        String fechan=request.getParameter("fechanac");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String fechan=sdf.format(request.getParameter("fechanac"));
+        String fechan="1990-12-12";
+        
+//        String fechaa=sdf.format(request.getParameter("fechanac"));
+                
         String tipodocu=request.getParameter("tdoumento");
         String ndocu=request.getParameter("ndoumento");
         String ncelular=request.getParameter("ncelular");
@@ -50,10 +56,10 @@ public class UsuarioRegistro extends HttpServlet {
         String correo=request.getParameter("correo");
         String contraseña=request.getParameter("contrasena");
         
-        DaoUsuario objagregarpa= new DaoUsuario();
-        persona objPersona = new persona(nombre,apellidop,apellidom,fechan,tipodocu,ndocu,direccion,distrito,provincia,departamento,correo,true);
-        telefono objtelefono = new telefono();
-        objagregarpa.RegistroP(objPersona, contraseña,ncelular);
+        DaoUsuario objagregarpa = new DaoUsuario();
+        persona objPersona = new persona(nombre, apellidop, apellidom, fechan, tipodocu, ndocu, direccion, distrito, provincia, departamento, correo, true);
+//        telefono objtelefono = new telefono();
+        objagregarpa.RegistroP(objPersona, contraseña, ncelular);
         
         response.sendRedirect("index.jsp");
     }

@@ -3,6 +3,7 @@
     Created on : 10/05/2021, 06:45:39 PM
     Author     : Dell
 --%>
+<%@page import="entidades.AtencionPersona"%>
 <%@page import="entidades.persona"%>
 <%@page import="modelo.Daodatos"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -176,10 +177,10 @@
                                             <div class="form-group">
                                                 <select name="iddoctor" class="form-control" aria-label="Default select example">
                                                     <option selected>Eliga el doctor</option>
-                                                   <% for (int i = 0; i < obj.obtenerDoctores().size(); i++) {    
-                                                    %>
-                                                    <option value="<%=i%>"><%= obj.obtenerDoctores().get(i) %></option>
-                                                    <% } %>
+                                                    <%for (AtencionPersona p : obj.obtenerDoctores()) {%>       
+                                                    <!-- se itera el array para almacenarlo en un combo box -->
+                                                    <option value="<%=p.getIdUsuarioMedico()%>"><%=p.getNombre_Medico()%></option>
+                                                    <% }%>
                                                 </select>
                                             </div>
                                             <div class="form-group">

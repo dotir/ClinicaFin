@@ -5,66 +5,51 @@
  */
 package controlador;
 
-import entidades.AtencionPersona;
-import entidades.persona;
+import modelo.DaoTratamiento;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import entidades.TratamientoStock;
+import entidades.telefono;
+import entidades.usuario;
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
-import modelo.DaoAtencion;
 
 /**
  *
- * @author ALESSO
+ * @author Dell
  */
-@WebServlet(name = "CitaDetDoc", urlPatterns = {"/CitaDetDoc"})
-public class CitaDetDoc extends HttpServlet {
+@WebServlet(name = "StockRegistrar", urlPatterns = {"/StockRegistrar"})
+public class StockRegistrar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
-     * @param response servlet response
+     * @param response servlet responsex
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String  idPaciente=request.getParameter("CodePac");
-            String  Nombre=request.getParameter("NombrePac");
-            
-            DaoAtencion objAgregarAtenDet= new DaoAtencion();
-//            AtencionPersona objAtenDeta = new AtencionPersona(Integer.parseInt(idAtencion),Integer.parseInt(idDetAtencion));
-            
-            
-//            ArrayList<AtencionPersona> a = new ArrayList<AtencionPersona>();
-//            a=objAgregarAtenDet.obtenerDetalleAtencion(Integer.parseInt(idAtencion),Integer.parseInt(idDetAtencion));
-//crear sesion para jalar datos
-            persona cod = new persona();
-            cod.setIdPersona(Integer.parseInt(idPaciente));
-            cod.setNombre(Nombre);
-            ArrayList<persona> personas= new ArrayList<persona>();
-            personas.add(cod);
-//            a=a(Integer.parseInt(idPaciente),Nombre);
-            
-            HttpSession session= request.getSession(true);
-            session.setAttribute("personas", personas);            
-//            session.setAttribute("Nombre", Nombre);            
-            response.sendRedirect("bdetcita.jsp");
-        }
+
         
-        
+        String CodeTratamiento = request.getParameter("CodeTratamiento");
+        String NombreTratamiento = request.getParameter("NombreTratamiento");
+        HttpSession sessionIdTrata = request.getSession(true);
+        sessionIdTrata.setAttribute("CodeTratamiento", CodeTratamiento);
+        HttpSession sessionNombreTrata = request.getSession(true);
+        sessionNombreTrata.setAttribute("NombreTratamiento", NombreTratamiento);
+
+        response.sendRedirect("rstock.jsp");
+
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,19 +1,12 @@
-<%-- 
-    Document   : bdetcita
-    Created on : 09/06/2021, 11:33:18 AM
-    Author     : ALESSO
---%>
-
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="com.google.gson.Gson"%>
 <%@page import="entidades.AtencionPersona"%>
 <%@page import="entidades.detalleatencion"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="entidades.atencion"%>
-<%@page import="entidades.persona"%>
 <%@page import="modelo.DaoAtencion"%>
-<%@page import="java.util.Date"%>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="entidades.doctor"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="modelo.DaoDoctor"%>
+<%@page import="modelo.DaoAdmin"%>
+<%@page import="entidades.persona"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="zxx">
 
@@ -21,7 +14,6 @@
     <!-- Mirrored from demo.dashboardpack.com/hospital-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 May 2021 22:04:16 GMT -->
     <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
     <head>
-
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -88,15 +80,10 @@
                         <span>Tablero</span>
                     </a>
                 </li>
+                <!--        ADMINISTRADOR-->
                 <% persona currentUser = (persona) session.getAttribute("datospersona");
                     Gson gson = new Gson();
-//                    ArrayList<AtencionPersona> objAtenDet = (ArrayList<AtencionPersona>) session.getAttribute("DetAten");
-                    ArrayList<persona> objAtenDet = (ArrayList<persona>) session.getAttribute("personas");
-//                    ArrayList<persona> objAtenDeta = (ArrayList<persona>) session.getAttribute("Nombre");
-//                    ArrayList<persona> objAtenDet = (ArrayList<persona>) session.getAttribute("DetAten");
-//                    ArrayList<AtencionPersona> objAtenDet = (ArrayList<AtencionPersona>) session.getAttribute("DetAten");
                 %>
-
                 <%  if (currentUser.getTipoPersona().equals("administrador")) {
                 %>        
                 <!-- Adminitracion -->
@@ -110,7 +97,7 @@
                     </a>
                     <ul>
                         <li><a href="bdoctor.jsp">Buscar doctor</a></li>
-                        <li><a href="rdoctor.jsp">Agregar doctor</a></li>
+                        <li><a href="#">Agregar doctor</a></li>
                     </ul>
                 </li>
                 <li class="">
@@ -120,7 +107,7 @@
                     </a>
                     <ul>
                         <li><a href="bpaciente.jsp">Buscar Paciente</a></li>
-                        <li><a href="rpaciente.jsp">Registrar Paciente</a></li>
+                        <li><a href="#">Registrar Paciente</a></li>
                     </ul>
                 </li>
                 <li class="">
@@ -130,7 +117,7 @@
                     </a>
                     <ul>
                         <li><a href="bcita.jsp">Buscar Cita</a></li>
-                        <li><a href="rcita.jsp">Registrar Cita</a></li>
+                        <li><a href="#">Registrar Cita</a></li>
                     </ul>
                 </li>
                 <li class="">
@@ -144,7 +131,7 @@
                     </ul>
                 </li>
 
-                <!-- Adminitracion -->
+                <!-- PACIENTE -->
                 <%
                 } else if (currentUser.getTipoPersona().equals("paciente")) {
                 %>
@@ -160,6 +147,7 @@
                     <ul>
                         <li><a href="bcita.jsp">Buscar cita</a></li>
                         <li><a href="rcita.jsp">Registrar cita</a></li>
+                        <li><a href="rcitaexa.jsp">Registrar cita para examen</a></li>
                     </ul>
                 </li>
 
@@ -173,28 +161,16 @@
                         <li><a href="#">Pagar receta</a></li>
                     </ul>
                 </li>
-                <%
-                } else if (currentUser.getTipoPersona().equals("enfermero")) {
-                %>
-                <!-- Cliente -->
-                <li class="side_menu_title">
-                    <span>Atencion</span>
-                </li>
-                <li class="">
-                    <a   class="has-arrow" href="#" aria-expanded="false">
-                        <img src="img/menu-icon/2.svg" alt="">
-                        <span>Citas</span>
-                    </a>
-                    <ul>
-                        <li><a href="principal.jsp">Buscar cita</a></li>
-                        <li><a href="rcita.jsp">Registrar cita</a></li>
-                    </ul>
-                </li>
-                <!-- Cliente --> 
+                <!-- MEDICO --> 
                 <%
                 } else if (currentUser.getTipoPersona().equals("medico")) {
                 %>
                 <!-- medico -->
+                <li>
+                    <button type="button" class="btn btn-danger btn-block">EMERGENCIA</button>
+                    <!--<a href="#" class="btn btn-danger">EMERGENCIA</a>-->
+                </li>
+
                 <li class="side_menu_title">
                     <span>Atenciones</span>
                 </li>
@@ -204,6 +180,7 @@
                         <span>Citas</span>
                     </a>
                     <ul>
+                        <li><a href="bcita.jsp">Buscar cita</a></li>
                         <li><a href="bcita.jsp">Buscar cita</a></li>
                     </ul>
                 </li>
@@ -218,22 +195,71 @@
                     </ul>
                 </li>
                 <!-- Medico --> 
+                <!-- Farmacia --> 
+                <%
+                } else if (currentUser.getTipoPersona().equals("farmaceutico")) {
+                %>
 
+                <li class="side_menu_title">
+                    <span>Medicamentos</span>
+                </li>
+                <li class="">
+                    <a   class="has-arrow" href="#" aria-expanded="false">
+                        <img src="img/menu-icon/2.svg" alt="">
+                        <span>Medicamentos</span>
+                    </a>
+                    <ul>
+                        <li><a href="rmedicamento.jsp">ingresar medicamento</a></li>
+                <li><a href="rstock.jsp">ingresar stock de medicamento</a></li>
+                <li><a href="bcita.jsp">Buscar medicamento</a></li>
+                    </ul>
+                </li>
+                <!-- Farmacia --> 
 
-                }
+                <!-- Laboratorio --> 
+                <%
+                } else if (currentUser.getTipoPersona().equals("laboratorio")) {
+                %>
+
+                <li class="side_menu_title">
+                    <span>Laboratorio</span>
+                </li>
+                <li class="">
+                    <a   class="has-arrow" href="principal.jsp" aria-expanded="false">
+                        <img src="img/menu-icon/2.svg" alt="">
+                        <span>Medicamentos</span>
+                    </a>
+                </li>
+
+                <!-- Laboratorio --> 
+                <!-- Enfermero --> 
+                <%
+                } else if (currentUser.getTipoPersona().equals("enfermero")) {
+                %>
+
+                <li class="side_menu_title">
+                    <span>Atencion</span>
+                </li>
+                <li class="">
+                    <a   class="has-arrow" href="principal.jsp" aria-expanded="false">
+                        <img src="img/menu-icon/2.svg" alt="">
+                        <span>Atencion Emergencia</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a   class="has-arrow" href="bcita.jsp" aria-expanded="false">
+                        <img src="img/menu-icon/2.svg" alt="">
+                        <span>Triaje</span>
+                    </a>
+                </li>
+                <!-- Enfermero --> 
                 <% }%>
 
 
 
 
-
-            </ul> 
-
+            </ul>  
         </nav>
-        <!-- sidebar part end -->
-        <!--/ sidebar  -->
-
-
         <section class="main_content dashboard_part">
             <!-- menu  -->
             <div class="container-fluid no-gutters">
@@ -254,12 +280,12 @@
                                 </div>
                                 <div class="profile_info">
                                     <img src="img/client_img.png" alt="#">
-                                    <% // persona currentUser = (persona)session.getAttribute("datospersona");
-//                             Gson gson = new Gson();%>
+
                                     <div class="profile_info_iner">
                                         <p><%= currentUser.getTipoPersona()%></p>
                                         <h5><%= currentUser.getNombre()%> <%= currentUser.getApellidoP()%></h5>
                                         <div class="profile_info_details">
+                                            <a href="perfil.jsp">My Perfil <i class="ti-user"></i></a>
                                             <a href="index.jsp">Salir <i class="ti-shift-left"></i></a>
                                         </div>
                                     </div>
@@ -270,154 +296,108 @@
                 </div>
             </div>
             <!--/ menu  -->
-            <!--/ menu  -->
             <div class="main_content_iner ">
                 <div class="container-fluid p-0">
                     <div class="row justify-content-center">
                         <div class="col-lg-12">
                             <div class="white_box mb_30">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-12">
-                                        <!-- sign_in  -->
-                                        <div class="modal-content cs_modal">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Cita</h5>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="registro" name=form method="POST" action="#" >
-                                                    <div class="form-group">
-                                                        <% System.out.print(objAtenDet.get(0).getIdPersona());%>
-                                                        <h5>Numero de atencion</h5>
-                                                        <input type="text" name="idPersona" class="form-control" placeholder="Numero de atencion" value="<%=objAtenDet.get(0).getIdPersona()%>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <h5>Numero de detalle atencion</h5>
-                                                        <input type="text" name="NombreP" class="form-control" placeholder="Numero de detalle atencion" value="<%=objAtenDet.get(0).getNombre()%>">
-                                                    </div>
-                                                    
-                                                    <input type="submit" class="btn_1 full_width text-center" value="Registrar"> 
-                                                </form>
-                                            </div>
-                                        </div>
+                                <div class="box_header ">
+                                    <div class="main-title">
+                                        <h3 class="mb-0" > Medicamento </h3>
                                     </div>
                                 </div>
-
+                                <div class="card-group">
+                                    <div class="card">
+                                        <form id="registro" name=form method="POST" action="MedicamentoRegistrar" >
+                                            <input hidden="true" type="text" name="idpersona" value=""  class="form-control">
+                                            <div class="form-group">
+                                                <input type="text" name="nombre_tratamiento" value=""  class="form-control" placeholder="Nombre del tratamiento">
+                                            </div>
+                                            <div class="form-group">
+                                                <select name="TipoTratamiento" class="form-control" aria-label="Default select example">
+                                                    <option value="Medicamento">Medicamento</option>
+                                                    <option value="Examenes">Examenes</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" name="precio" value="" class="form-control" placeholder="precio">
+                                            </div>                                            
+                                            <input type="submit" class="btn_1 full_width text-center" value="Ingresar"> 
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
+        </div>
 
-
-            <!-- footer part -->
-            <div class="footer_part">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="footer_iner text-center">
-                                <p>2021 Diseñado <a href="#"> <i class="ti-heart"></i> </a><a href="#"> Dashboard</a></p>
-                            </div>
+        <!-- footer part -->
+        <div class="footer_part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer_iner text-center">
+                            <p>2020 © Influence - Designed by <a href="#"> <i class="ti-heart"></i> </a><a href="#"> Dashboard</a></p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- main content part end -->
+        </div>
+    </section>
+    <!-- main content part end -->
 
-        <!-- footer  -->
-        <!-- jquery slim -->
-        <script src="js/jquery-3.4.1.min.js"></script>
-        <!-- popper js -->
-        <script src="js/popper.min.js"></script>
-        <!-- bootstarp js -->
-        <script src="js/bootstrap.min.js"></script>
-        <!-- sidebar menu  -->
-        <script src="js/metisMenu.js"></script>
-        <!-- waypoints js -->
-        <script src="vendors/count_up/jquery.waypoints.min.js"></script>
-        <!-- waypoints js -->
-        <script src="vendors/chartlist/Chart.min.js"></script>
-        <!-- counterup js -->
-        <script src="vendors/count_up/jquery.counterup.min.js"></script>
-        <!-- swiper slider js -->
-        <script src="vendors/swiper_slider/js/swiper.min.js"></script>
-        <!-- nice select -->
-        <script src="vendors/niceselect/js/jquery.nice-select.min.js"></script>
-        <!-- owl carousel -->
-        <script src="vendors/owl_carousel/js/owl.carousel.min.js"></script>
-        <!-- gijgo css -->
-        <script src="vendors/gijgo/gijgo.min.js"></script>
-        <!-- responsive table -->
-        <script src="vendors/datatable/js/jquery.dataTables.min.js"></script>
-        <script src="vendors/datatable/js/dataTables.responsive.min.js"></script>
-        <script src="vendors/datatable/js/dataTables.buttons.min.js"></script>
-        <script src="vendors/datatable/js/buttons.flash.min.js"></script>
-        <script src="vendors/datatable/js/jszip.min.js"></script>
-        <script src="vendors/datatable/js/pdfmake.min.js"></script>
-        <script src="vendors/datatable/js/vfs_fonts.js"></script>
-        <script src="vendors/datatable/js/buttons.html5.min.js"></script>
-        <script src="vendors/datatable/js/buttons.print.min.js"></script>
+    <!-- footer  -->
+    <!-- jquery slim -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="js/popper.min.js"></script>
+    <!-- bootstarp js -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- sidebar menu  -->
+    <script src="js/metisMenu.js"></script>
+    <!-- waypoints js -->
+    <script src="vendors/count_up/jquery.waypoints.min.js"></script>
+    <!-- waypoints js -->
+    <script src="vendors/chartlist/Chart.min.js"></script>
+    <!-- counterup js -->
+    <script src="vendors/count_up/jquery.counterup.min.js"></script>
+    <!-- swiper slider js -->
+    <script src="vendors/swiper_slider/js/swiper.min.js"></script>
+    <!-- nice select -->
+    <script src="vendors/niceselect/js/jquery.nice-select.min.js"></script>
+    <!-- owl carousel -->
+    <script src="vendors/owl_carousel/js/owl.carousel.min.js"></script>
+    <!-- gijgo css -->
+    <script src="vendors/gijgo/gijgo.min.js"></script>
+    <!-- responsive table -->
+    <script src="vendors/datatable/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatable/js/dataTables.responsive.min.js"></script>
+    <script src="vendors/datatable/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatable/js/buttons.flash.min.js"></script>
+    <script src="vendors/datatable/js/jszip.min.js"></script>
+    <script src="vendors/datatable/js/pdfmake.min.js"></script>
+    <script src="vendors/datatable/js/vfs_fonts.js"></script>
+    <script src="vendors/datatable/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatable/js/buttons.print.min.js"></script>
 
-        <script src="js/chart.min.js"></script>
-        <!-- progressbar js -->
-        <script src="vendors/progressbar/jquery.barfiller.js"></script>
-        <!-- tag input -->
-        <script src="vendors/tagsinput/tagsinput.js"></script>
-        <!-- text editor js -->
-        <script src="vendors/text_editor/summernote-bs4.js"></script>
+    <script src="js/chart.min.js"></script>
+    <!-- progressbar js -->
+    <script src="vendors/progressbar/jquery.barfiller.js"></script>
+    <!-- tag input -->
+    <script src="vendors/tagsinput/tagsinput.js"></script>
+    <!-- text editor js -->
+    <script src="vendors/text_editor/summernote-bs4.js"></script>
 
-        <script src="vendors/apex_chart/apexcharts.js"></script>
+    <script src="vendors/apex_chart/apexcharts.js"></script>
 
-        <!-- custom js -->
-        <script src="js/custom.js"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
 
-        <script src="vendors/apex_chart/bar_active_1.js"></script>
-        <script src="vendors/apex_chart/apex_chart_list.js"></script>
+    <script src="vendors/apex_chart/bar_active_1.js"></script>
+    <script src="vendors/apex_chart/apex_chart_list.js"></script>
+</body>
 
-        <script>
-            function modifyDoctors(ev) {
-                let value = ev.value.replaceAll("'", "\"");
-                value = JSON.parse(value);
-                console.log(value)
-                //let nombre = document.querySelector("#nombre");               
-                //                let nombre = document.getElementById("nombre");
-
-                //                nombre.value=value.nombre;
-                let idAtencion = document.querySelector("#idAtencion");
-                idAtencion.value = value.idAtencion;
-
-                let TipoAtencion = document.querySelector("#TipoAtencion");
-                TipoAtencion.value = value.TipoAtencion;
-
-                let NombreLocal = document.querySelector("#NombreLocal");
-                NombreLocal.value = value.NombreLocal;
-
-                let Detalle = document.querySelector("#Detalle");
-                Detalle.value = value.Detalle;
-            }
-            function modifyReceta(ev) {
-                let value = ev.value.replaceAll("'", "\"");
-                value = JSON.parse(value);
-                console.log(value)
-                //let nombre = document.querySelector("#nombre");               
-                //                let nombre = document.getElementById("nombre");
-
-                //                nombre.value=value.nombre;
-                let idAtencion = document.querySelector("#idAtencion");
-                idAtencion.value = value.idAtencion;
-
-
-            }
-
-
-
-        </script>
-
-
-    </body>
-
-    <!-- Mirrored from demo.dashboardpack.com/hospital-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 May 2021 22:04:53 GMT -->
+<!-- Mirrored from demo.dashboardpack.com/hospital-html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 10 May 2021 22:04:53 GMT -->
 </html>

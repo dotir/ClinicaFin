@@ -6,7 +6,7 @@
 package entidades;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 
 /**
  *
@@ -16,13 +16,13 @@ public class atencion {
     private int idAtencion;
     private int idUsuarioClinica;
     private int idUsuarioCliente;
-    private Timestamp FechaAtencion;
+    private String FechaAtencion;
     private Date FechaProgramada;
     private double subtotal;
     private double igv;
     private double total;
 
-    public atencion( int idUsuarioClinica, int idUsuarioCliente, Timestamp FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
+    public atencion( int idUsuarioClinica, int idUsuarioCliente, String FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
        
         this.idUsuarioClinica = idUsuarioClinica;
         this.idUsuarioCliente = idUsuarioCliente;
@@ -62,11 +62,11 @@ public class atencion {
         this.idUsuarioCliente = idUsuarioCliente;
     }
 
-    public Timestamp getFechaAtencion() {
+    public String getFechaAtencion() {
         return FechaAtencion;
     }
 
-    public void setFechaAtencion(Timestamp FechaAtencion) {
+    public void setFechaAtencion(String FechaAtencion) {
         this.FechaAtencion = FechaAtencion;
     }
 

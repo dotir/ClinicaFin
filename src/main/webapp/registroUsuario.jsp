@@ -86,11 +86,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <select name="tdoumento" class="form-control" aria-label="Default select example" required>
-                                                    <option selected>Tipo documento</option>
-                                                    <% Daodatos objdi = new Daodatos(); %>
-                                                    <% for (int i = 0; i < objdi.obtenerdocumentos().size(); i++) {%>
-                                                    <option value="<%=i%>"><%= objdi.obtenerdocumentos().get(i)%></option>  
-                                                    <%}%>
+                                                    <!--<option selected>Tipo documento</option>-->
+                                                    <option value="dni">dni</option>  
+                                                    <option value="carnet">Carnet de extrangeria</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">

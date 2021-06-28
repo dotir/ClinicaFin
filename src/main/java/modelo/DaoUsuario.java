@@ -390,11 +390,27 @@ public class DaoUsuario {
             String correo=bean.getCorreo();
             String contrasena=contra;
             bean.setEstado(true);
-            String sql="INSERT INTO `persona` (`idPersona`,`Nombre`, `ApellidoPaterno`, `ApellidoMaterno`, `FechaNacimiento`, `TipoDocumento`, `NroDocumento`, `id_Direccion`, `Correo`, `Profesion`, `idEspecialidad`, `Estado`, `idTipoPersona`) VALUES (NULL, '"+
-                    nombre+"', '"+apellidop+"', '"+apellidom+"','1996-12-22','"+tipodocu+"','"+ndocu+"','"+(cantidaddi())+"','"+correo+"',NULL,NULL,'1','3')";
-            String sql2="INSERT INTO `usuario` (`idUsuario`,`Nombre`,`Contrasena`, `idPersona`) VALUES (NULL, '"+nombre+"', '"+contrasena+"','"+(cantidad()+1)+"')";
-            String sql3="INSERT INTO `telefono` (`idTelefono`, `NroTelefono`, `Detalle(Propiedad)`, `idPersona`) VALUES (NULL, '"+celular+"', '', '"+(cantidad()+1)+"')";
-            String sql4="INSERT INTO `direccion` (`ID_Direccion`, `Id_Dist`, `Descripcion`) VALUES (NULL, '330', '"+direccion+"')";
+            boolean a = true;
+            String sql="INSERT INTO `persona`"
+                        + " (`idPersona`, `Nombre`, `ApellidoPaterno`, `ApellidoMaterno`, `FechaNacimiento`,"
+                        + " `TipoDocumento`, `NroDocumento`, `id_Direccion`, `Correo`, `idEspecialidad`,"
+                        + " `Estado`, `idTipoPersona`)"
+                        + " VALUES"
+                        + " (NULL, '" + nombre + "', '" + apellidop + "', '" + apellidom + "','"+fechan+"',"
+                        + " '" + tipodocu + "','" + ndocu + "', '" + (cantidaddi()) + "','" + correo + "', NULL,"
+                        + " '1','3')";
+            String sql2 = "INSERT INTO `usuario`"
+                        + " (`idUsuario`,`Nombre`,`Contrasena`, `idPersona`)"
+                        + " VALUES"
+                        + " (NULL, '"+nombre+"', '"+contrasena+"','"+(cantidad()+1)+"')";
+            String sql3="INSERT INTO `telefono`"
+                        + " (`idTelefono`, `NroTelefono`, `Detalle(Propiedad)`, `idPersona`)"
+                        + " VALUES"
+                        + " (NULL, '"+celular+"', '', '"+(cantidad()+1)+"')";
+            String sql4="INSERT INTO `direccion`"
+                        + " (`ID_Direccion`, `Id_Dist`, `Descripcion`)"
+                        + " VALUES"
+                        + " (NULL, '330', '"+direccion+"')";
             cn = ConnectionManager.getConn();
             System.out.println(sql);
             System.out.println(sql2);
@@ -632,6 +648,71 @@ public class DaoUsuario {
         return obj_paciente;
     }
     
+     //obtener todas los pacientes con tal dni
+    public ArrayList<persona> obtenerPacientesRecep() {
+        ArrayList<persona> obj_citas = new ArrayList<persona>();
+        Statement stmt = null;
+
+        String searchQuery = "SELECT p.idPersona, p.Nombre, p.ApellidoPaterno, p.ApellidoMaterno,"
+                            + " p.TipoDocumento, p.NroDocumento, p.Correo"
+                            + " FROM persona p"
+                            + " where p.idTipoPersona=3";
+        System.out.println(searchQuery);
+        try {
+
+            currenctCon = ConnectionManager.getConn();
+            stmt = currenctCon.createStatement();
+            rs = stmt.executeQuery(searchQuery);
+
+            while (rs.next()) {
+                persona bean = new persona();
+                int idUsuarioCliente = Integer.parseInt(rs.getString("p.idPersona"));
+                bean.setIdPersona(idUsuarioCliente);
+
+                String Nombre_Paciente = rs.getString("p.Nombre");
+                String Apellido1_Paciente = rs.getString("p.ApellidoPaterno");
+                String Apellido2_Paciente = rs.getString("p.ApellidoMaterno");
+                bean.setNombre(Nombre_Paciente + " " + Apellido1_Paciente + " " + Apellido2_Paciente);
+
+                String TipoDocumento = rs.getString("p.TipoDocumento");
+                bean.setTipoDocumento(TipoDocumento);
+                String NroDocumento = rs.getString("p.NroDocumento");
+                bean.setNroDocumento(NroDocumento);
+                String Correo = rs.getString("p.Correo");
+                bean.setCorreo(Correo);
+
+                obj_citas.add(bean);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (Exception e) {
+                    rs = null;
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (Exception e) {
+                    stmt = null;
+                }
+            }
+            if (currenctCon != null) {
+                try {
+                    currenctCon.close();
+                } catch (Exception e) {
+                    currenctCon = null;
+                }
+            }
+        }
+        return obj_citas;
+    }
     
     
 }

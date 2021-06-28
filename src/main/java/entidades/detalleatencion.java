@@ -7,7 +7,7 @@ package entidades;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
+//import java.sql.Timestamp;
 
 /**
  *
@@ -25,7 +25,7 @@ public class detalleatencion extends atencion{
     private double precio;
     private String estado;
 
-    public detalleatencion(int idDetalleAtencion, int idAtencion, int idTipoAtencion, int idLocal, String detalle, String horaInicio, String horaFin, int cantidad, double precio, String estado, int idUsuarioClinica, int idUsuarioCliente, Timestamp FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
+    public detalleatencion(int idDetalleAtencion, int idAtencion, int idTipoAtencion, int idLocal, String detalle, String horaInicio, String horaFin, int cantidad, double precio, String estado, int idUsuarioClinica, int idUsuarioCliente, String FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
         super(idUsuarioClinica, idUsuarioCliente, FechaAtencion, FechaProgramada, subtotal, igv, total);
         this.idDetalleAtencion = idDetalleAtencion;
         this.idAtencion = idAtencion;
@@ -59,7 +59,7 @@ public class detalleatencion extends atencion{
         this.horaFin = horaFin;
     }
 
-    public detalleatencion(int idUsuarioClinica, int idUsuarioCliente, Timestamp FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
+    public detalleatencion(int idUsuarioClinica, int idUsuarioCliente, String FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
         super(idUsuarioClinica, idUsuarioCliente, FechaAtencion, FechaProgramada, subtotal, igv, total);
     }
 
