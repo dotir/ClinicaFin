@@ -19,25 +19,26 @@ public class TratamientoStock {
     private double Precio_tratamiento;
     private int Cantidad_Tratamiento;
     
-    private int idStock;
+    private int idProducto;
+    private String NombreMedicamento;
     private int Cantidad_ingreso_presentacion;
     private int Cantidad_Presentacion;
     private String TipoPresentacion;
     private int idTipoPresentacion;
     private int Cantidad;
-    private int Cantidad_Medida;
+    private double Cantidad_Medida;
     private String UnidadMedidad;
     private int idUnidadMedidad;
-    private Date Fecha_Ingreso;
-    private Date Fecha_Caducidad;
+    private String Fecha_Ingreso;
+    private String Fecha_Caducidad;
 
     public TratamientoStock(){
         
     }
     
-    public TratamientoStock(String Nombre_tratamiento, int idStock, int Cantidad_ingreso_presentacion, int Cantidad_Presentacion, String TipoPresentacion, int Cantidad, int Cantidad_Medida, String UnidadMedidad, Date Fecha_Ingreso, Date Fecha_Caducidad) {
+    public TratamientoStock(String Nombre_tratamiento, int idProducto, int Cantidad_ingreso_presentacion, int Cantidad_Presentacion, String TipoPresentacion, int Cantidad, int Cantidad_Medida, String UnidadMedidad, String Fecha_Ingreso, String Fecha_Caducidad) {
         this.Nombre_tratamiento = Nombre_tratamiento;
-        this.idStock = idStock;
+        this.idProducto = idProducto;
         this.Cantidad_ingreso_presentacion = Cantidad_ingreso_presentacion;
         this.Cantidad_Presentacion = Cantidad_Presentacion;
         this.TipoPresentacion = TipoPresentacion;
@@ -67,9 +68,6 @@ public class TratamientoStock {
         this.Nombre_tratamiento = Nombre_tratamiento;
     }
 
-    
-    
-    
     public int getId_tratamiento() {
         return id_tratamiento;
     }
@@ -118,12 +116,20 @@ public class TratamientoStock {
         this.Cantidad_Tratamiento = Cantidad_Tratamiento;
     }
 
-    public int getIdStock() {
-        return idStock;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public void setIdStock(int idStock) {
-        this.idStock = idStock;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
+    }
+
+    public String getNombreMedicamento() {
+        return NombreMedicamento;
+    }
+
+    public void setNombreMedicamento(String NombreMedicamento) {
+        this.NombreMedicamento = NombreMedicamento;
     }
 
     public int getCantidad_ingreso_presentacion() {
@@ -166,11 +172,11 @@ public class TratamientoStock {
         this.Cantidad = Cantidad;
     }
 
-    public int getCantidad_Medida() {
+    public double getCantidad_Medida() {
         return Cantidad_Medida;
     }
 
-    public void setCantidad_Medida(int Cantidad_Medida) {
+    public void setCantidad_Medida(double Cantidad_Medida) {
         this.Cantidad_Medida = Cantidad_Medida;
     }
 
@@ -190,25 +196,20 @@ public class TratamientoStock {
         this.idUnidadMedidad = idUnidadMedidad;
     }
 
-    public Date getFecha_Ingreso() {
+    public String getFecha_Ingreso() {
         return Fecha_Ingreso;
     }
 
-    public void setFecha_Ingreso(Date Fecha_Ingreso) {
+    public void setFecha_Ingreso(String Fecha_Ingreso) {
         this.Fecha_Ingreso = Fecha_Ingreso;
     }
 
-    public Date getFecha_Caducidad() {
+    public String getFecha_Caducidad() {
         return Fecha_Caducidad;
     }
 
-    public void setFecha_Caducidad(Date Fecha_Caducidad) {
+    public void setFecha_Caducidad(String Fecha_Caducidad) {
         this.Fecha_Caducidad = Fecha_Caducidad;
     }
-    
-    
-    
-    
-    
-    
+
 }

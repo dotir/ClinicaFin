@@ -5,6 +5,7 @@
  */
 package modelo;
 
+import entidades.HelperSelect;
 import static modelo.DaoAtencion.currenctCon;
 import static modelo.DaoAtencion.rs;
 import java.sql.Connection;
@@ -23,13 +24,12 @@ public class DaoDirecciones {
     static Connection currenctCon= null;
     static ResultSet rs = null;
     
-    public ArrayList<String> obtenerDepartamento(){
+    public ArrayList<HelperSelect> obtenerDepartamento(){
         
         Statement stmt = null;
-        ArrayList<String> objdepartamento = new ArrayList<String>();
-
+        ArrayList<HelperSelect> objdepartamento = new ArrayList<HelperSelect>();
         String searchQuery =
-                "SELECT * FROM ubdepartamento";
+                "SELECT UD.idDepa,UD.departamento FROM ubdepartamento UD";
         
         System.out.println(searchQuery);
         
@@ -40,8 +40,8 @@ public class DaoDirecciones {
             rs = stmt.executeQuery(searchQuery);
 //            boolean more= rs.next();
 
-            while(rs.next()){     
-                objdepartamento.add(rs.getString("departamento"));
+            while(rs.next()){   
+                objdepartamento.add(new HelperSelect(rs.getInt("UD.idDepa"), rs.getString("UD.departamento")));
             }
  
         }catch(SQLException e){

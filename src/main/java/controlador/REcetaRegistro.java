@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.DaoRecetas;
-import entidades.receta;
+import entidades.Receta;
 
 /**
  *
@@ -46,9 +46,9 @@ public class REcetaRegistro extends HttpServlet {
         String unidades=request.getParameter("unidades");
         
         DaoRecetas objAgregarReceta= new DaoRecetas();
-        receta objReceta = new receta(Integer.parseInt(idAtencion),Tipo_Receta,Descripcion,unidades);
+//        receta objReceta = new receta(Integer.parseInt(idAtencion),Tipo_Receta,Descripcion,unidades);
         
-        objAgregarReceta.IngresarReceta(objReceta);
+//        objAgregarReceta.IngresarReceta(objReceta);
         
         response.sendRedirect("bcita.jsp");
         }

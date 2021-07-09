@@ -1,3 +1,5 @@
+<%@page import="entidades.HelperSelect"%>
+<%@page import="modelo.Daodatos"%>
 <%@page import="entidades.AtencionPersona"%>
 <%@page import="entidades.detalleatencion"%>
 <%@page import="modelo.DaoAtencion"%>
@@ -305,35 +307,76 @@
                             <div class="white_box mb_30">
                                 <div class="box_header ">
                                     <div class="main-title">
-                                        <h3 class="mb-0" > Stock de medicamentos </h3>
+                                        <h3 class="mb-0" > Ingresar medicamentos </h3>
                                     </div>
                                 </div>
                                 <div class="card-group">
                                     <div class="card">
                                         <form id="registro" name=form method="POST" action="StockRegistrar" >
                                             <input hidden="true" type="text" name="idpersona" value=""  class="form-control">
+                                            <h5> Seleccione medicamento </h5>
                                             <div class="form-group">
-                                                <input type="text" name="idmedicamento" value="<%=id%>"  class="form-control" placeholder="Nombre del tratamiento">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" name="NombreTratamiento" value="<%=NombreTratamiento%>"  class="form-control" placeholder="Nombre del tratamiento">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" name="nombre_tratamiento" value=""  class="form-control" placeholder="Nombre del tratamiento">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" name="nombre_tratamiento" value=""  class="form-control" placeholder="Nombre del tratamiento">
-                                            </div>
-                                            <div class="form-group">
-                                                <select name="tdoumento" value="" class="form-control" aria-label="Default select example">
-                                                    <option value="dni">medicamento</option>
-                                                    <option value="extranjeria">Examen</option>
+                                                <select name="medicamento" value="" class="form-control" aria-label="Default select example">
+                                                    <%
+                                                        Daodatos obj = new Daodatos();
+                                                        ArrayList<HelperSelect> medicamento = obj.obtenerMedicamentos();
+                                                        for (int i = 0; i < medicamento.size(); i++) {
+                                                    %>
+                                                    <option value="<%=medicamento.get(i).getId()%>"><%=medicamento.get(i).getNombre()%></option>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </select>
                                             </div>
+                                            <h5> Ingrese la cantidad</h5>
                                             <div class="form-group">
-                                                <input type="text" name="precio" value="" class="form-control" placeholder="precio">
+                                                <input type="number" name="Cantidad_Ingreso" value=""  class="form-control" placeholder="Cantidad que ingresa">
+                                            </div>
+                                            <h5> Seleccione el tipo de Presentacion </h5>
+                                            <div class="form-group">
+                                                <select name="TipoPresentacion" value="" class="form-control" aria-label="Default select example">
+                                                    <%
+//                                                        Daodatos objtp = new Daodatos();
+                                                        ArrayList<HelperSelect> TipoPresentacion = obj.obtenerTipoPresentacion();
+                                                        for (int i = 0; i < TipoPresentacion.size(); i++) {
+                                                    %>
+                                                    <option value="<%=TipoPresentacion.get(i).getId()%>"><%=TipoPresentacion.get(i).getNombre()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+                                            <h5> Ingrese la cantidad de la Presentacion</h5>
+                                            <div class="form-group">
+                                                <input type="number" name="Cantidad_Presentacion" value=""  class="form-control" placeholder="Cantidad de la presentacion">
                                             </div>                                            
-                                            <input type="submit" class="btn_1 full_width text-center" value="Ingresar"> 
+                                            <h5> Indique el Precio por Unidad </h5>
+                                            <div class="form-group">
+                                                <input type="text" name="PrecioUnidad" value=""  class="form-control" placeholder="Precio por unidad">
+                                            </div>
+                                            <h5> Indique la cantidad de Unidad de Medida </h5>
+                                            <div class="form-group">
+                                                <input type="text" name="CantidadUM" value=""  class="form-control" placeholder="Cantidad de Unidad de Medida">
+                                            </div>
+                                            <h5> Seleccione la Unidad de Medida </h5>
+                                            <div class="form-group">
+                                                <select name="UnidadMedida" value="" class="form-control" aria-label="Default select example">
+                                                    <%
+//                                                        Daodatos objtum = new Daodatos();
+                                                        ArrayList<HelperSelect> UnidadMedida = obj.obtenerUnidadMedida();
+                                                        for (int i = 0; i < UnidadMedida.size(); i++) {
+                                                    %>
+                                                    <option value="<%=UnidadMedida.get(i).getId()%>"><%=UnidadMedida.get(i).getNombre()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+                                            <h5> Seleccione la fecha de caducidad </h5>
+                                            <div class="form-group">
+                                                <input type="date" class="input_form" name="FechaCaducidad" placeholder="Fecha de Caducidad">
+                                            </div>                                         
+                                            <input type="submit" class="btn_1 full_width text-center" value="Ingresar Medicamento"> 
                                         </form>
                                     </div>
                                 </div>

@@ -39,30 +39,27 @@ public class CitaDetDoc extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+        try {
+            try (PrintWriter out = response.getWriter()) {
+            String  idAtencion=request.getParameter("CodeAtencio");
             String  idPaciente=request.getParameter("CodePac");
             String  Nombre=request.getParameter("NombrePac");
             
-            DaoAtencion objAgregarAtenDet= new DaoAtencion();
-//            AtencionPersona objAtenDeta = new AtencionPersona(Integer.parseInt(idAtencion),Integer.parseInt(idDetAtencion));
-            
-            
-//            ArrayList<AtencionPersona> a = new ArrayList<AtencionPersona>();
-//            a=objAgregarAtenDet.obtenerDetalleAtencion(Integer.parseInt(idAtencion),Integer.parseInt(idDetAtencion));
-//crear sesion para jalar datos
+//            DaoAtencion objAgregarAtenDet= new DaoAtencion();
             persona cod = new persona();
             cod.setIdPersona(Integer.parseInt(idPaciente));
+            cod.setIdEspcialidad(Integer.parseInt(idAtencion));
             cod.setNombre(Nombre);
             ArrayList<persona> personas= new ArrayList<persona>();
             personas.add(cod);
-//            a=a(Integer.parseInt(idPaciente),Nombre);
-            
             HttpSession session= request.getSession(true);
-            session.setAttribute("personas", personas);            
-//            session.setAttribute("Nombre", Nombre);            
+            session.setAttribute("personas", personas);    
             response.sendRedirect("bdetcita.jsp");
         }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
         
         
     }

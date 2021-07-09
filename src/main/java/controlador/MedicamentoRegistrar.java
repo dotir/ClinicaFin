@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.TratamientoStock;
 import entidades.telefono;
 import entidades.usuario;
+import modelo.DaoProducto;
 
 /**
  *
@@ -36,17 +37,17 @@ public class MedicamentoRegistrar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        String Nombre_Tratamiento=request.getParameter("nombre_tratamiento");
-        String Tipo_Tratamiento=request.getParameter("TipoTratamiento");
-        double Precio=Double.parseDouble(request.getParameter("precio"));
-        
-        DaoTratamiento objagregarme= new DaoTratamiento();
-        TratamientoStock objMedicamento = new TratamientoStock(Nombre_Tratamiento,Tipo_Tratamiento,Precio);
-        objagregarme.RegistroMedicamento(objMedicamento);
-        
-        response.sendRedirect("bmedicamento.jsp");
+
+        try {
+            String Nombre_Tratamiento = request.getParameter("NombreMedicamento");
+            DaoProducto obj = new DaoProducto();
+            obj.RegistroMedicamento(Nombre_Tratamiento);
+            response.sendRedirect("bmedicamento.jsp");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
+
         
         
         

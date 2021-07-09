@@ -1,3 +1,5 @@
+<%@page import="entidades.HelperSelect"%>
+<%@page import="modelo.Daodatos"%>
 <%@page import="entidades.AtencionPersona"%>
 <%@page import="entidades.detalleatencion"%>
 <%@page import="modelo.DaoAtencion"%>
@@ -210,8 +212,8 @@
                     </a>
                     <ul>
                         <li><a href="rmedicamento.jsp">ingresar medicamento</a></li>
-                <li><a href="rstock.jsp">ingresar stock de medicamento</a></li>
-                <li><a href="bcita.jsp">Buscar medicamento</a></li>
+                        <li><a href="rstock.jsp">ingresar stock de medicamento</a></li>
+                        <li><a href="bcita.jsp">Buscar medicamento</a></li>
                     </ul>
                 </li>
                 <!-- Farmacia --> 
@@ -311,26 +313,52 @@
                                         <form id="registro" name=form method="POST" action="MedicamentoRegistrar" >
                                             <input hidden="true" type="text" name="idpersona" value=""  class="form-control">
                                             <div class="form-group">
-                                                <input type="text" name="nombre_tratamiento" value=""  class="form-control" placeholder="Nombre del tratamiento">
-                                            </div>
-                                            <div class="form-group">
-                                                <select name="TipoTratamiento" class="form-control" aria-label="Default select example">
-                                                    <option value="Medicamento">Medicamento</option>
-                                                    <option value="Examenes">Examenes</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" name="precio" value="" class="form-control" placeholder="precio">
-                                            </div>                                            
+                                                <input type="text" name="NombreMedicamento" value=""  class="form-control" placeholder="Nombre del tratamiento">
+                                            </div>                                         
                                             <input type="submit" class="btn_1 full_width text-center" value="Ingresar"> 
                                         </form>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
+                        <div class="container-fluid p-0">
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="QA_section">
+
+                                    <div class="QA_table mb_30">
+                                        <!-- table-responsive -->
+                                        <table class="table lms_table_active">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">idAtencion</th>
+                                                    <th scope="col">Nombre del medicamento</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%
+                                                Daodatos obj = new Daodatos();
+                                                ArrayList<HelperSelect> medicamento = obj.obtenerMedicamentos();
+                                                for (int i = 0; i < medicamento.size(); i++) {
+                                                        %>
+                                                <tr>
+                                                    <td><%=medicamento.get(i).getId()%></td>
+                                                    <td><%=medicamento.get(i).getNombre()%></td>
+                                                </tr>
+                                                <%
+                                                    }
+                                                %>                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div></div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- footer part -->

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.persona;
 import entidades.telefono;
 import entidades.usuario;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -49,12 +50,16 @@ public class UsuarioActualizar extends HttpServlet {
         String provincia=request.getParameter("provincia");
         String departamento=request.getParameter("departamento");
         String correo=request.getParameter("correo");
-        String contraseña=request.getParameter("contrasena");
-        
+        String contrasena=request.getParameter("contrasena");
+        String Confircontrasena=request.getParameter("Confircontrasena");
+        if(contrasena==Confircontrasena){
+            contrasena=Confircontrasena;
+        }
         DaoUsuario objagregarpa= new DaoUsuario();
-        persona objPersona = new persona(idperson,nombre,apellidop,apellidom,fechan,tipodocu,ndocu,direccion,correo,true);
-        objagregarpa.ActualizarU(objPersona, contraseña, ncelular);
-        
+        persona objPersona = new persona(idperson,nombre,apellidop,apellidom,direccion,correo);
+        objagregarpa.ActualizarU(objPersona, contrasena, ncelular);
+        HttpSession session= request.getSession(true);
+        session.setAttribute("creado", nombre);
         response.sendRedirect("principal.jsp");
         
         

@@ -5,7 +5,6 @@
  */
 package controlador;
 
-import modelo.DaoUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,17 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import entidades.persona;
-import entidades.receta;
-import entidades.telefono;
-import modelo.DaoRecetas;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Dell
+ * @author ALESSO
  */
-@WebServlet(name = "RecetaInsertar", urlPatterns = {"/RecetaInsertar"})
-public class RecetaInsertar extends HttpServlet {
+@WebServlet(name = "SeleccionarTriaje", urlPatterns = {"/SeleccionarTriaje"})
+public class SeleccionarTriaje extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,19 +32,16 @@ public class RecetaInsertar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idperson=request.getParameter("idpersona");
-//        String idAtencion=request.getParameter("idAtencion");
-        String idAtencion=request.getParameter("idAtencion");
-        String Tipo_Receta=request.getParameter("Tipo_Receta");
-        String Descripcion=request.getParameter("Descripcion");
-        String unidades=request.getParameter("unidades");
-        
-        DaoRecetas objAgregarReceta= new DaoRecetas();
-        receta objReceta = new receta(Integer.parseInt(idAtencion),Tipo_Receta,Descripcion,unidades);
-        
-        objAgregarReceta.IngresarReceta(objReceta);
-        
-        response.sendRedirect("bcita.jsp");
+        try {
+            String Code = request.getParameter("abc123");
+            String NomPac = request.getParameter("NomPac");
+            HttpSession session = request.getSession(true);
+            session.setAttribute("Code", Code);
+            session.setAttribute("NomPac", NomPac);
+            response.sendRedirect("rtriaje.jsp");
+        } catch (Exception e) {
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

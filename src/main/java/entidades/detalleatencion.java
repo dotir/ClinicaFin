@@ -13,7 +13,7 @@ import java.sql.Time;
  *
  * @author Dell
  */
-public class detalleatencion extends atencion{
+public class detalleatencion {
     private int idDetalleAtencion;
     private int idAtencion;
     private int idTipoAtencion;
@@ -25,19 +25,19 @@ public class detalleatencion extends atencion{
     private double precio;
     private String estado;
 
-    public detalleatencion(int idDetalleAtencion, int idAtencion, int idTipoAtencion, int idLocal, String detalle, String horaInicio, String horaFin, int cantidad, double precio, String estado, int idUsuarioClinica, int idUsuarioCliente, String FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
-        super(idUsuarioClinica, idUsuarioCliente, FechaAtencion, FechaProgramada, subtotal, igv, total);
-        this.idDetalleAtencion = idDetalleAtencion;
-        this.idAtencion = idAtencion;
-        this.idTipoAtencion = idTipoAtencion;
-        this.idLocal = idLocal;
-        this.detalle = detalle;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.cantidad = cantidad;
-        this.precio = precio;
-        this.estado = estado;
-    }
+//    public detalleatencion(int idDetalleAtencion, int idAtencion, int idTipoAtencion, int idLocal, String detalle, String horaInicio, String horaFin, int cantidad, double precio, String estado, int idUsuarioClinica, int idUsuarioCliente, String FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
+//        super(idUsuarioClinica, idUsuarioCliente, FechaAtencion, FechaProgramada, subtotal, igv, total);
+//        this.idDetalleAtencion = idDetalleAtencion;
+//        this.idAtencion = idAtencion;
+//        this.idTipoAtencion = idTipoAtencion;
+//        this.idLocal = idLocal;
+//        this.detalle = detalle;
+//        this.horaInicio = horaInicio;
+//        this.horaFin = horaFin;
+//        this.cantidad = cantidad;
+//        this.precio = precio;
+//        this.estado = estado;
+//    }
 
     public detalleatencion(int idDetalleAtencion, int idAtencion, int idTipoAtencion, int idLocal, String detalle, String horaInicio, String horaFin, int cantidad, double precio, String estado) {
         this.idDetalleAtencion = idDetalleAtencion;
@@ -59,9 +59,9 @@ public class detalleatencion extends atencion{
         this.horaFin = horaFin;
     }
 
-    public detalleatencion(int idUsuarioClinica, int idUsuarioCliente, String FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
-        super(idUsuarioClinica, idUsuarioCliente, FechaAtencion, FechaProgramada, subtotal, igv, total);
-    }
+//    public detalleatencion(int idUsuarioClinica, int idUsuarioCliente, String FechaAtencion, Date FechaProgramada, double subtotal, double igv, double total) {
+//        super(idUsuarioClinica, idUsuarioCliente, FechaAtencion, FechaProgramada, subtotal, igv, total);
+//    }
 
     public detalleatencion(){}
 

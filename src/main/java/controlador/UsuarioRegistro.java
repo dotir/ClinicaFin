@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import entidades.persona;
 import entidades.telefono;
 import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,32 +37,41 @@ public class UsuarioRegistro extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String nombre=request.getParameter("nombre");
-        String apellidop=request.getParameter("apellidop");
-        String apellidom=request.getParameter("apellidom");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//        String fechan=sdf.format(request.getParameter("fechanac"));
-        String fechan="1990-12-12";
-        
+        try {
+            String nombre = request.getParameter("nombre");
+            String apellidop = request.getParameter("apellidop");
+            String apellidom = request.getParameter("apellidom");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            String fechan = sdf.format(request.getParameter("fechanac"));
+            String fechan = request.getParameter("fechanac");
+//        String fechan="1990-12-12";
+
 //        String fechaa=sdf.format(request.getParameter("fechanac"));
-                
-        String tipodocu=request.getParameter("tdoumento");
-        String ndocu=request.getParameter("ndoumento");
-        String ncelular=request.getParameter("ncelular");
-        String direccion=request.getParameter("direccion");
-        String distrito=request.getParameter("distrito");
-        String provincia=request.getParameter("provincia");
-        String departamento=request.getParameter("departamento");
-        String correo=request.getParameter("correo");
-        String contraseña=request.getParameter("contrasena");
-        
-        DaoUsuario objagregarpa = new DaoUsuario();
-        persona objPersona = new persona(nombre, apellidop, apellidom, fechan, tipodocu, ndocu, direccion, distrito, provincia, departamento, correo, true);
-//        telefono objtelefono = new telefono();
-        objagregarpa.RegistroP(objPersona, contraseña, ncelular);
-        
-        response.sendRedirect("index.jsp");
+            String tipodocu = request.getParameter("tdoumento");
+            String ndocu = request.getParameter("ndoumento");
+            String usuario = request.getParameter("ndoumento");
+            String contrasena = request.getParameter("contrasena12");
+            String ncelular = request.getParameter("ncelular");
+            String direccion = request.getParameter("direccion");
+            String distrito = request.getParameter("idDistrito");
+            String provincia = request.getParameter("idProvincia");
+            String departamento = request.getParameter("idDepar");
+            String correo = request.getParameter("correo12");
+//        String contraseña=request.getParameter("contrasena");
+
+            DaoUsuario objagregarpa = new DaoUsuario();
+//        persona objPersona = new persona(nombre, apellidop, apellidom, fechan, tipodocu, ndocu, direccion, distrito, provincia, departamento, correo, true);
+            persona objPersona = new persona(nombre, apellidop, apellidom, fechan, usuario, contrasena, tipodocu, ndocu, direccion, distrito, provincia, departamento, correo);
+            telefono objtelefono = new telefono();
+            persona a =new persona();
+            a=objagregarpa.RegistroP(objPersona, ncelular);
+            HttpSession session= request.getSession(true);
+            session.setAttribute("creado", a.getNombre());
+            response.sendRedirect("index.jsp");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

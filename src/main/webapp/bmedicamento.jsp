@@ -1,3 +1,4 @@
+<%@page import="modelo.DaoProducto"%>
 <%@page import="entidades.TratamientoStock"%>
 <%@page import="entidades.detalleatencion"%>
 <%@page import="modelo.DaoTratamiento"%>
@@ -214,6 +215,17 @@
                         <li><a href="bcita.jsp">Buscar medicamento</a></li>
                     </ul>
                 </li>
+                <li class="">
+                    <a   class="has-arrow" href="#" aria-expanded="false">
+                        <img src="img/menu-icon/2.svg" alt="">
+                        <span>Farmacia</span>
+                    </a>
+                    <ul>
+                        <li><a href="rventa.jsp">Venta</a></li>
+                        <li><a href="#">Estadisticas</a></li>
+                        <li><a href="#">Buscar medicamento</a></li>
+                    </ul>
+                </li>
                 <!-- Farmacia --> 
 
                 <!-- Laboratorio --> 
@@ -319,10 +331,14 @@
                                     <table class="table lms_table_active">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Numero de tratamiento</th>
-                                                <th scope="col">Nombre de tratamiento</th>
-                                                <th scope="col">Tipo de tratamiento</th>
+                                                <th scope="col">Numero de Medicamento</th>
+                                                <th scope="col">Nombre de Medicamento</th>
+                                                <th scope="col">Cantida de ingreso</th>
+                                                <th scope="col">Cantidad</th>
                                                 <th scope="col">Precio</th>
+                                                <th scope="col">Unidad de Medida</th>
+                                                <th scope="col">Fecha Ingreso</th>
+                                                <th scope="col">Fecha Caducidad</th>
                                                 <th scope="col">Stock</th>
 
                                             </tr>
@@ -332,22 +348,26 @@
 
                                         <tbody>                          
                                             <%
-                                                DaoTratamiento obj_tratamiento = new DaoTratamiento();
-                                                ArrayList<TratamientoStock> objTratamiento = obj_tratamiento.obtenerMedicamento();
+                                                DaoProducto obj_Producto = new DaoProducto();
+                                                ArrayList<TratamientoStock> objTratamiento = obj_Producto.obtenerProductoStock();
                                                 if (currentUser.getTipoPersona().equals("farmaceutico")) {
                                             %>
                                             <% for (int i = 0; i < objTratamiento.size(); i++) {%>
                                             <tr>
-                                                <td><%=objTratamiento.get(i).getId_tratamiento()%></td>
-                                                <td><%=objTratamiento.get(i).getNombre_tratamiento()%></td>
-                                                <td><%=objTratamiento.get(i).getTipo_tratamiento()%></td>
+                                                <td><%=objTratamiento.get(i).getIdProducto()%></td>
+                                                <td><%=objTratamiento.get(i).getNombreMedicamento()%></td>
+                                                <td><%=objTratamiento.get(i).getTipoPresentacion()%></td>
+                                                <td><%=objTratamiento.get(i).getCantidad()%></td>
                                                 <td><%=objTratamiento.get(i).getPrecio_tratamiento()%></td>
+                                                <td><%=objTratamiento.get(i).getUnidadMedidad()%></td>
+                                                <td><%=objTratamiento.get(i).getFecha_Ingreso()%></td>
+                                                <td><%=objTratamiento.get(i).getFecha_Caducidad()%></td>
                                                 <!--<td><a href="eatencionc.jsp">Ingresar</a>></td>-->
                                         <td>
 
                                             <form method="get" action="StockRegistrar">
-                                                <input type="hidden" value="<%=objTratamiento.get(i).getId_tratamiento()%>" name="CodeTratamiento"> <!-- etiquetado sin meta --> 
-                                                <input type="hidden" value="<%=objTratamiento.get(i).getNombre_tratamiento()%>" name="NombreTratamiento"> <!-- etiquetado sin meta --> 
+                                                <input type="hidden" value="<%=objTratamiento.get(i).getIdProducto()%>" name="CodeTratamiento"> <!-- etiquetado sin meta --> 
+                                                <input type="hidden" value="<%=objTratamiento.get(i).getNombreMedicamento()%>" name="NombreTratamiento"> <!-- etiquetado sin meta --> 
                                                 <button type="submit" class="btn_1 full_width text-center">AGREGAR STOCK</button>
                                             </form>
 
@@ -358,61 +378,7 @@
                                             }%>
                                         </tbody>
                                     </table>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Registrar detalle de atencion</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="card-group">
-                                                        <div class="card">
-                                                            <form id="registro" name=form method="POST" action="CitaActualizarDoc" >
-                                                                <input hidden="true" type="text" name="idpersona" value="<%=currentUser.getIdPersona()%>"  class="form-control">
-                                                                <!--{'nombre':'Alessandro Pelayo','apellidosP':'Mollocondo','apellidoM':'Medrano','especialidad':'Cardiología'}-->
-                                                                <div class="form-group">
-                                                                    <label for="idAtencion">Numero de atencion: </label>
-                                                                    <input type="text" id="idAtencion" name="idAtencion" class="form-control" placeholder="Nombre">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="TipoAtencion" >Tipo de atencion</label>
-                                                                    <input type="text" id="TipoAtencion" name="TipoAtencion" class="form-control" placeholder="Nombre">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="NombreLocal" >Nombre del local</label>
-                                                                    <input type="text" id="NombreLocal" name="NombreLocal" class="form-control" placeholder="Nombre">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="Detalle" >Detalle de la atencion</label>
-                                                                    <textarea  type="text" id="Detalle" name="Detalle" class="form-control" placeholder="Nombre" rows="10" cols="100"></textarea>
-                                                                </div>
-                                                                <div style="float:right;">
-                                                                    <script type="text/javascript">
-                                                                        //<![CDATA[
-                                                                        var today = new Date();
-                                                                        var m = today.getMonth() + 1;
-                                                                        var mes = (m < 10) ? '0' + m : m;
-                                                                        document.write('Fecha: ' + today.getDate(), '/' + mes, '/' + today.getYear());
-                                                                        //]]> 
-                                                                    </script>
-                                                                </div>
-                                                                <input type="submit" class="btn_1 full_width text-center" value="Registrar detalle de atencion"> 
-                                                            </form>
-                                                        </div>
-                                                    </div>                                        
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <!--<button type="button" class="btn btn-primary">Save changes</button>-->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1Label" aria-hidden="true">
@@ -530,43 +496,6 @@
 
         <script src="vendors/apex_chart/bar_active_1.js"></script>
         <script src="vendors/apex_chart/apex_chart_list.js"></script>
-
-        <script>
-                                                                                function modifyDoctors(ev) {
-                                                                                    let value = ev.value.replaceAll("'", "\"");
-                                                                                    value = JSON.parse(value);
-                                                                                    console.log(value);
-
-                                                                                    let idAtencion = document.querySelector("#idAtencion");
-                                                                                    idAtencion.value = value.idAtencion;
-
-                                                                                    let TipoAtencion = document.querySelector("#TipoAtencion");
-                                                                                    TipoAtencion.value = value.TipoAtencion;
-
-                                                                                    let NombreLocal = document.querySelector("#NombreLocal");
-                                                                                    NombreLocal.value = value.NombreLocal;
-
-                                                                                    let Detalle = document.querySelector("#Detalle");
-                                                                                    Detalle.value = value.Detalle;
-                                                                                }
-                                                                                function modifyReceta(ev) {
-                                                                                    let value = ev.value.replaceAll("'", "\"");
-                                                                                    value = JSON.parse(value);
-                                                                                    console.log(value)
-                                                                                    //let nombre = document.querySelector("#nombre");               
-        //                let nombre = document.getElementById("nombre");
-
-        //                nombre.value=value.nombre;
-                                                                                    let idAtencion = document.querySelector("#idAtencion");
-                                                                                    idAtencion.value = value.idAtencion;
-
-
-                                                                                }
-
-
-
-        </script>
-
 
     </body>
 

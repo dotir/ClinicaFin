@@ -16,6 +16,10 @@ public class persona {
     private String ApellidoP;
     private String ApellidoM;
     private String FechaNac;
+    
+    private String Usuario;
+    private String contrasena;
+    
     private String tipoDocumento;
     private String NroDocumento;
     private String Direccion;
@@ -23,15 +27,29 @@ public class persona {
     private String Provincia;
     private String Departamento;
     private String correo;
-    private String profesion;
+//    private String profesion;
     private int idEspcialidad;
+    private String TipoEspcialidad;
     private boolean estado;
     private int idTipoPersona;
     private String tipoPersona;
+    private String PerEstado;
 
     public persona() {
     }
 
+    public persona(int idPersona, String Nombre, String ApellidoP, String ApellidoM, String Direccion, String correo) {
+        this.idPersona = idPersona;
+        this.Nombre = Nombre;
+        this.ApellidoP = ApellidoP;
+        this.ApellidoM = ApellidoM;
+        this.Direccion = Direccion;
+        this.correo = correo;
+    }
+
+    
+    
+    
     public persona(int idPersona, String Nombre, String ApellidoP, String ApellidoM, String FechaNac, String NroDocumento, String Direccion, String correo) {
         this.idPersona = idPersona;
         this.Nombre = Nombre;
@@ -46,9 +64,7 @@ public class persona {
     public persona(int idPersona, String Nombre) {
         this.idPersona = idPersona;
         this.Nombre = Nombre;
-    }
-
-    
+    }    
     
     public persona(int idPersona, String Nombre, String ApellidoP, String ApellidoM, String FechaNac, String NroDocumento, String Direccion, String Distrito, String Provincia, String Departamento, String correo, boolean estado, String tipoPersona) {
         this.idPersona = idPersona;
@@ -94,10 +110,22 @@ public class persona {
         this.estado = estado;
     }
 
+    public persona(String Nombre, String ApellidoP, String ApellidoM, String FechaNac, String Usuario, String contrasena, String tipoDocumento, String NroDocumento, String Direccion, String Distrito, String Provincia, String Departamento, String correo) {
+        this.Nombre = Nombre;
+        this.ApellidoP = ApellidoP;
+        this.ApellidoM = ApellidoM;
+        this.FechaNac = FechaNac;
+        this.Usuario = Usuario;
+        this.contrasena = contrasena;
+        this.tipoDocumento = tipoDocumento;
+        this.NroDocumento = NroDocumento;
+        this.Direccion = Direccion;
+        this.Distrito = Distrito;
+        this.Provincia = Provincia;
+        this.Departamento = Departamento;
+        this.correo = correo;
+    }
 
-    
-    
-    
     public int getIdPersona() {
         return idPersona;
     }
@@ -122,7 +150,6 @@ public class persona {
         this.ApellidoP = ApellidoP;
     }
 
-    
     public String getApellidoM() {
         return ApellidoM;
     }
@@ -137,6 +164,22 @@ public class persona {
 
     public void setFechaNac(String FechaNac) {
         this.FechaNac = FechaNac;
+    }
+
+    public String getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(String Usuario) {
+        this.Usuario = Usuario;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public String getTipoDocumento() {
@@ -195,28 +238,28 @@ public class persona {
         this.correo = correo;
     }
 
-    public boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public String getProfesion() {
-        return profesion;
-    }
-
-    public void setProfesion(String profesion) {
-        this.profesion = profesion;
-    }
-
     public int getIdEspcialidad() {
         return idEspcialidad;
     }
 
     public void setIdEspcialidad(int idEspcialidad) {
         this.idEspcialidad = idEspcialidad;
+    }
+
+    public String getTipoEspcialidad() {
+        return TipoEspcialidad;
+    }
+
+    public void setTipoEspcialidad(String TipoEspcialidad) {
+        this.TipoEspcialidad = TipoEspcialidad;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public int getIdTipoPersona() {
@@ -234,7 +277,14 @@ public class persona {
     public void setTipoPersona(String tipoPersona) {
         this.tipoPersona = tipoPersona;
     }
-    
-    
-    
+
+    public String getPerEstado() {
+        return PerEstado;
+    }
+
+    public void setPerEstado(String PerEstado) {
+        this.PerEstado = PerEstado;
+    }
+
+   
 }

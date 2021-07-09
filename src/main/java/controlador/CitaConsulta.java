@@ -5,13 +5,18 @@
  */
 package controlador;
 
+import com.google.gson.Gson;
+import entidades.Atencion;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.DaoAtencion;
 
 /**
  *
@@ -32,7 +37,25 @@ public class CitaConsulta extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        try {
+            String NombrePac = request.getParameter("busq");
+            String dniPac = request.getParameter("dniPac");
+
+            Atencion a = new Atencion();
+            DaoAtencion Ba=new DaoAtencion();
+//            List<Atencion> LA= new List<Atencion>(); 
+//            Ba.obtenerCitadoctoresdetNombrePac(NombrePac, Integer.parseInt(dniPac));
+            
+            
+              ArrayList<Atencion> p = new ArrayList<Atencion>();
+            p = Ba.obtenerCitadoctoresdetNombrePac(NombrePac);
+            String json = new Gson().toJson(p);
+            response.getWriter().write(json);
+            
+//            Array de atencion
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

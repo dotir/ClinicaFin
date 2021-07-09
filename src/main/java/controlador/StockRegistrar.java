@@ -5,7 +5,8 @@
  */
 package controlador;
 
-import modelo.DaoTratamiento;
+import entidades.Producto;
+import modelo.DaoProducto;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,17 +39,32 @@ public class StockRegistrar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        try {
+            int CodeMedicamento = Integer.parseInt(request.getParameter("medicamento"));
+            int CantidadIngreso = Integer.parseInt(request.getParameter("Cantidad_Ingreso"));
+            int TipoPresentacion = Integer.parseInt(request.getParameter("TipoPresentacion"));
+            int CantidadPresentacion = Integer.parseInt(request.getParameter("Cantidad_Presentacion"));
+            double PrecioUnidad = Double.parseDouble(request.getParameter("PrecioUnidad"));
+            double CantidadUM = Double.parseDouble(request.getParameter("CantidadUM"));
+            int UnidadMedida = Integer.parseInt(request.getParameter("UnidadMedida"));
+            String FechaCaducidad = request.getParameter("FechaCaducidad");
+//            HttpSession sessionIdTrata = request.getSession(true);
+//            sessionIdTrata.setAttribute("CodeTratamiento", CodeTratamiento);
+//            HttpSession sessionNombreTrata = request.getSession(true);
+//            sessionNombreTrata.setAttribute("NombreTratamiento", NombreTratamiento);
+            Producto obj = new Producto(CodeMedicamento,CantidadIngreso,CantidadPresentacion,TipoPresentacion,PrecioUnidad,CantidadUM,UnidadMedida,FechaCaducidad);
+            DaoProducto prod=new DaoProducto();
+            prod.RegistroProducto(obj);
+            HttpSession session= request.getSession(true);
+            session.setAttribute("creado", CodeMedicamento);
+
+            response.sendRedirect("bmedicamento.jsp");
+
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
         
-        String CodeTratamiento = request.getParameter("CodeTratamiento");
-        String NombreTratamiento = request.getParameter("NombreTratamiento");
-        HttpSession sessionIdTrata = request.getSession(true);
-        sessionIdTrata.setAttribute("CodeTratamiento", CodeTratamiento);
-        HttpSession sessionNombreTrata = request.getSession(true);
-        sessionNombreTrata.setAttribute("NombreTratamiento", NombreTratamiento);
-
-        response.sendRedirect("rstock.jsp");
-
 
     }
 

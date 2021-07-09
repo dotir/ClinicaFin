@@ -5,6 +5,8 @@
  */
 package controlador;
 
+import com.google.gson.Gson;
+import entidades.HelperSelect;
 import modelo.DaoAtencion;
 import modelo.Daodatos;
 import java.io.IOException;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import entidades.persona;
+import java.util.ArrayList;
 
 /**
  *
@@ -35,14 +38,27 @@ public class CitaRegistro extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        //response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         String tipo= request.getParameter("docoesp");
-        if(tipo.equals("especialidad")){           
-            response.sendRedirect("rcitaesp.jsp");
+        if(tipo.equals("especialidad")){  
+            Daodatos d = new Daodatos();
+            ArrayList<HelperSelect> p = new ArrayList<HelperSelect>();
+            p = d.obtenerEspecialidad();
+            String json = new Gson().toJson(p);
+            response.getWriter().write(json);
         }else if(tipo.equals("doctor")){
-            response.sendRedirect("rcitadoc.jsp");
+            persona p = new persona();
+            p.setApellidoM("juanita la huefanita");
+            String json = new Gson().toJson(p);
+            response.getWriter().write(json);
+        }else{
+            persona p = new persona();
+            p.setApellidoM("404");
+            String json = new Gson().toJson(p);
+            response.getWriter().write(json);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
